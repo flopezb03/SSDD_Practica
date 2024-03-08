@@ -4,8 +4,8 @@ public class Game {
 
     private long id;
     private String name;
-    private int releaseYear;
-    private int duration;
+    private Integer releaseYear;
+    private Integer duration;
 
     public Game(){}
     public Game(long id, String name, int releaseYear, int duration) {
@@ -31,7 +31,7 @@ public class Game {
         this.name = name;
     }
 
-    public int getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
@@ -39,7 +39,7 @@ public class Game {
         this.releaseYear = releaseYear;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
