@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles de videojuego</title>
+</head>
+<body>
+    <h1>Detalles de {{game.name}}</h1>
+    <p>Nombre: {{game.name}}</p>
+    <p>Año de lanzamiento: {{game.releaseYear}}</p>
+    <p>Duracion: {{game.duration}}</p>
+    <p><a href="/games/update/{{game.id}}">Editar</a><a href="/games/delete/{{game.id}}">Eliminar</a></p>
+    <p><a href="/games">Volver</a> </p>
+</body>
+</html>
