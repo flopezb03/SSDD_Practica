@@ -1,0 +1,101 @@
+package es.ssdd.Practica1.entities;
+
+public class CharacterInGame {
+    //Attributes of the class
+    private Long idChar;
+
+    //The combination of name & surname could be used as alternative key in second practice
+    private String name;
+    private String surname;
+
+    //Other information attributes
+    private String dislike; //A thing the char dislikes
+    private String like; //A thing the char likes
+    private String talent;
+
+    private double height;
+
+    //Constructors
+    public CharacterInGame(){}
+    public CharacterInGame(String name, String surname, String dislike, String like, String talent, double height) {
+        this.name = name;
+        this.surname = surname;
+        this.dislike = dislike;
+        this.like = like;
+        this.talent = talent;
+        this.height = height;
+    }
+
+
+    //Getter and setter methods
+
+
+    public Long getIdChar() {
+        return idChar;
+    }
+
+    public void setIdChar(Long idChar) {
+        this.idChar = idChar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getDislike() {
+        return dislike;
+    }
+
+    public void setDislike(String dislike) {
+        this.dislike = dislike;
+    }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
+    }
+
+    public String getTalent() {
+        return talent;
+    }
+
+    public void setTalent(String talent) {
+        this.talent = talent;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    //Equals Method
+    @Override
+    public boolean equals(Object char2){
+        if (char2 == null)
+            return false;
+        else if (CharacterInGame.class.equals(char2.getClass())){
+            CharacterInGame charEq = (CharacterInGame) char2;
+            return (this.getName().equals(charEq.getName()) && this.getSurname().equals(charEq.getSurname()));
+        }//This block states two character are the same if they have same name and username
+        else
+            return false;
+    }
+}
