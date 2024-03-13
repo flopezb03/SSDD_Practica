@@ -1,4 +1,4 @@
-package es.ssdd.Practica1.controllers;
+package es.ssdd.Practica1.controllers.web;
 
 import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.services.GameService;
