@@ -22,7 +22,7 @@ public class GameController {
     }
     @GetMapping("/games/create")
     public String createGameForm(){
-        return "games-create";
+        return "game-create";
     }
     @PostMapping("/games/create")
     public String createGame(Game game){
