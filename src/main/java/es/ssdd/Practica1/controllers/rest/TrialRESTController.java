@@ -1,7 +1,51 @@
 package es.ssdd.Practica1.controllers.rest;
 
-import org.springframework.web.bind.annotation.RestController;
+import es.ssdd.Practica1.entities.Trial;
+import es.ssdd.Practica1.services.TrialService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
+@RequestMapping("/api/")
 @RestController
 public class TrialRESTController {
+    @Autowired
+    TrialService trialService;
+
+    @GetMapping("trials")
+    public ResponseEntity<Collection<Trial>> getAllTrials(){
+        return ResponseEntity.ok(trialService.getAllTrials());
+    }
+
+    @GetMapping("trials/{id}")
+    public ResponseEntity<Trial> getTrial(@PathVariable long id){
+        Trial trial = trialService.getTrial(id);
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial);
+    }
+
+    @PostMapping("trials")
+    public ResponseEntity<Trial> createTrial(@RequestBody Trial trial){
+        return ResponseEntity.status(201).body(trialService.createTrial(trial));
+    }
+
+    @DeleteMapping("trials/{id}")
+    public ResponseEntity<Trial> deleteTrial(@PathVariable long id){
+        Trial delete = trialService.deleteTrial(id);
+        if (delete == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(delete);
+    }
+
+    @PutMapping("trials/{id}")
+    public ResponseEntity<Trial> updateTrial(@PathVariable long id, @RequestBody Trial trial){
+        return ResponseEntity.status(201).body(trialService.updateTrial(id,trial));
+    }
+
+
+
+
 }

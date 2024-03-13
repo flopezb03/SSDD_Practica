@@ -1,9 +1,10 @@
 package es.ssdd.Practica1.entities;
 
 public class Trial {
-    private Long trial_id;
+    private long trial_id;
     private String decor;
-    private String resumen;     //Traducir
+    private String summary;
+    private int chapter;
 
     public Trial() {
     }
@@ -24,11 +25,19 @@ public class Trial {
         this.decor = decor;
     }
 
-    public String getResumen() {
-        return resumen;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setResumen(String resumen) {
-        this.resumen = resumen;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public int getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(int chapter) {
+        this.chapter = chapter;
     }
 }
