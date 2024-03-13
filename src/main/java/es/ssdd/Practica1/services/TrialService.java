@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class TrialService {
-    Map<Trial,Long> trialMap = new ConcurrentHashMap<Trial,Long>();
+    Map<Trial,Long> trialMap = new ConcurrentHashMap<>();
     AtomicLong nextTrialId = new AtomicLong();
 
     public Trial createTrial(Trial trial){
