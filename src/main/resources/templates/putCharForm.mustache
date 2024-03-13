@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/startMenu/characters/put" method="post">
+        <label for="name">Updated Name of the character</label>
+        <input type = "text" id="name" name="name" value = "{{character.name}}">
+
+        <label for="surname">Updated username of the character</label>
+        <input type="text" id = "surname" name="surname" value = "{{character.surname}}"><br><br>
+
+        <label for="like">Update value of what the character likes?</label>
+        <input type="text" name="like" id="like" value = "{{character.like}}"><br><br>
+
+        <label for="dislike">Update value of what the character dislikes? </label>
+        <input type="text" id="dislike" name="dislike" value = "{{character.dislike}}"><br><br>
+
+        <label for="talent">What is the updated talent of the character?</label>
+        <input type="text" id="talent" name="talent" value = "{{character.talent}}"><br><br>
+
+        <label for="height"> What is the update height?</label>
+        <input type="number" id="height" name="height" step="0.01" min="0.00" max="5.00" value = "{{character.height}}"><br><br>
+
+        <input type="submit" value="Update character">
+    </form>
+</body>
+</html>

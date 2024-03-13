@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Information</title>
+</head>
+<body>
+    <h1> {{character.name}} {{character.surname}}</h1>
+    <p>Like: {{character.like}}</p>
+    <p>Dislike: {{character.dislike}}</p>
+    <p>Talent: {{character.talent}}</p>
+    <p>Height: {{character.height}}</p>
+
+    <a href = "/startMenu/characters/{{character.idChar}}/delete"> Delete character</a>
+    <a href = "/startMenu/characters/{{character.idChar}}/put"> Edit character</a>
+</body>
+</html>

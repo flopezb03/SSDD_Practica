@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Characters</title>
+</head>
+<body>
+    <h1>Characters in game</h1>
+    <ul>
+        {{#characters}}
+        <li>
+            <a href="/startMenu/characters/{{idChar}}">{{name}} {{surname}}</a>
+        </li>
+        {{/characters}}
+    </ul>
+    <a href="/startMenu/characters/addCharacter">Add a character</a>
+</body>
+</html>
