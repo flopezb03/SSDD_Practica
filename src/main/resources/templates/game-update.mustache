@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Videojuego</title>
+</head>
+<body>
+<h1>{{game.name}}</h1>
+<form action="/games/update/{{game.id}}" method="post">
+    <label for="name">Nombre: </label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="releaseYear">Año de lanzamiento: </label>
+    <input type="text" id="releaseYear" name="releaseYear"><br><br>
+    <label for="duration">Duración: </label>
+    <input type="text" id="duration" name="duration"><br><br>
+    <input type="submit" value="Confirmar cambios">
+    <p><a href="/games/details/{{game.id}}">Volver</a> </p>
+</form>
+</body>
+</html>
