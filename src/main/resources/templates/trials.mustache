@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Trial list</title>
+</head>
+<body>
+    <h1>Trials</h1>
+    <ul>
+        {{#ltrials}}
+            <li>
+                <a href="/startMenu/trials/details/{{trial_id}}">{{summary}}</a>
+            </li>
+        {{/ltrials}}
+    </ul>
+    <button ><a href="/startMenu/trials/create">Create Trial</a></button>
+    <button ><a href="/startMenu">Main menu</a></button>
+</body>
+</html>

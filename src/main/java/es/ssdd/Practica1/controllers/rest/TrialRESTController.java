@@ -42,7 +42,10 @@ public class TrialRESTController {
 
     @PutMapping("trials/{id}")
     public ResponseEntity<Trial> updateTrial(@PathVariable long id, @RequestBody Trial trial){
-        return ResponseEntity.status(201).body(trialService.updateTrial(id,trial));
+        Trial updated = trialService.updateTrial(id,trial);
+        if (trial == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.status(201).body(updated);
     }
 
 

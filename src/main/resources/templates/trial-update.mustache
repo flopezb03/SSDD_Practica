@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trial creation</title>
+</head>
+<body>
+<h1>Trial creation</h1>
+<form name="trialUForm" action="/startMenu/trials/update/{{trial.trial_id}}" method="post">
+    <label for="chapter">Chapter: </label>
+    <input type="text" id="chapter" name="chapter"><br><br>
+    <label for="decor">Trial ground decor:</label>
+    <input type="text" id="decor" name="decor"><br><br>
+    <label for="summary">Trial summary: </label>
+    <textarea id="summary" name="summary" ></textarea><br><br>
+    <input type="submit" value="Edit">
+</form>
+</body>
+</html>

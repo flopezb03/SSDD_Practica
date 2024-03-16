@@ -2,9 +2,10 @@ package es.ssdd.Practica1.entities;
 
 public class Trial {
     private long trial_id;
+    private int chapter;
     private String decor;
     private String summary;
-    private int chapter;
+
 
     public Trial() {
     }

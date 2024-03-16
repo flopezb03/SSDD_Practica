@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trial details</title>
+</head>
+<body>
+    <h1>Trial details</h1>
+    <p>Chapter: {{trial.chapter}}</p>
+    <p>Decor: {{trial.decor}}</p>
+    <p>Summary: {{trial.summary}}</p>
+    <a href="/startMenu/trials/update/{{trial.trial_id}}">Update</a>
+    <a href="/startMenu/trials/delete/{{trial.trial_id}}" onclick="return confirm('Do you really want to delete this trial?');">Delete</a>
+    <a href= "/startMenu/trials">Trial menu</a>
+</body>
+</html>
