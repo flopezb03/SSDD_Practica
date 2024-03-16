@@ -3,11 +3,12 @@ package es.ssdd.Practica1.controllers.web;
 import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class GameController {
@@ -33,7 +34,8 @@ public class GameController {
     public String getGame(Model model, @PathVariable long id){
         Game game = gameService.readGame(id);
         if(game == null)
-            return "redirect:/error";
+            //return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videojuego con id "+id+" no encontrado");
         model.addAttribute("game",game);
         return "game-details";
     }
@@ -41,7 +43,8 @@ public class GameController {
     public String deleteGame(@PathVariable long id){
         Game game = gameService.deleteGame(id);
         if(game == null)
-            return "redirect:/error";
+            //return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videojuego con id "+id+" no encontrado");
         return "redirect:/games";
     }
     @GetMapping("/games/update/{id}")
@@ -60,4 +63,12 @@ public class GameController {
         return "redirect:/games/details/"+id;
     }
 
+    @ExceptionHandler({ResponseStatusException.class})
+    public ModelAndView handleException(ResponseStatusException ex){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("message-error");
+        modelAndView.addObject("message",ex.getReason());
+        modelAndView.addObject("redirect","/games");
+        return modelAndView;
+    }
 }
