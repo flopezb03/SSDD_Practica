@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detalles de videojuego</title>
+    <title>Videogames details</title>
 </head>
 <body>
-    <h1>Detalles de {{game.name}}</h1>
-    <p>Nombre: {{game.name}}</p>
-    <p>Año de lanzamiento: {{game.releaseYear}}</p>
-    <p>Duración: {{game.duration}}</p>
-    <p><a href="/games/update/{{game.id}}">Editar</a><a href="/games/delete/{{game.id}}">Eliminar</a></p>
-    <p><a href="/games">Volver</a> </p>
+    <h1>{{game.name}} details</h1>
+    <p>Name: {{game.name}}</p>
+    <p>Release year: {{game.releaseYear}}</p>
+    <p>Duration: {{game.duration}}</p>
+    <p><a href="/games/update/{{game.id}}">Edit</a><a href="/games/delete/{{game.id}}">Delete</a></p>
+    <p><a href="/games">Back</a> </p>
 </body>
 </html>

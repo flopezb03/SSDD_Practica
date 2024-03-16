@@ -35,7 +35,7 @@ public class GameController {
         Game game = gameService.readGame(id);
         if(game == null)
             //return "redirect:/error";
-            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videojuego con id "+id+" no encontrado");
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         model.addAttribute("game",game);
         return "game-details";
     }
@@ -44,7 +44,7 @@ public class GameController {
         Game game = gameService.deleteGame(id);
         if(game == null)
             //return "redirect:/error";
-            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videojuego con id "+id+" no encontrado");
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         return "redirect:/games";
     }
     @GetMapping("/games/update/{id}")
