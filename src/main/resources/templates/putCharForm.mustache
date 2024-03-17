@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Character</title>
+
 </head>
 <body>
-    <form action="/startMenu/characters/put" method="post">
+    <h1>Editing the character</h1>
+    <form id = "putForm" action="/startMenu/characters/{{character.idChar}}/put" method="post">
+        <!--<input type="hidden" name="idChar" value="{{character.idChar}}">-->
         <label for="name">Updated Name of the character</label>
         <input type = "text" id="name" name="name" value = "{{character.name}}">
 
