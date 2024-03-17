@@ -2,16 +2,20 @@
 <html>
 <head>
     <title>Videogame create</title>
+    <script src="/validateForms.js"></script>
 </head>
 <body>
     <h1>Videogame create</h1>
-    <form action="/games/create" method="post">
+    <form action="/games/create" method="post" onsubmit="return validateGameForms()">
         <label for="name">Name: </label>
         <input type="text" id="name" name="name"><br><br>
+
         <label for="releaseYear">Release year: </label>
         <input type="text" id="releaseYear" name="releaseYear"><br><br>
+
         <label for="duration">Duration: </label>
         <input type="text" id="duration" name="duration"><br><br>
+
         <input type="submit" value="Create">
         <p><a href="/games">Back</a> </p>
     </form>
