@@ -1,5 +1,4 @@
 package es.ssdd.Practica1.controllers.webControllers;
-
 import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +61,10 @@ public class CharacterController {
         }
     }
 
-    @PostMapping("/put")
-    public String putCharacter(CharacterInGame character){
-        charService.putCharacter(character.getIdChar(),character);
+    @PostMapping("/{id}/put")
+    public String putCharacter(@PathVariable Long id,CharacterInGame character){
+        character.setIdChar(id);
+        charService.putCharacter(id,character);
         return "redirect:/startMenu/characters";
     }
 
