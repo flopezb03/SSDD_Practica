@@ -1,4 +1,4 @@
-package es.ssdd.Practica1.controllers.webControllers;
+package es.ssdd.Practica1.controllers.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
