@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/startMenu")
 public class GameController {
 
     @Autowired
@@ -28,13 +29,12 @@ public class GameController {
     @PostMapping("/games/create")
     public String createGame(Game game){
         gameService.createGame(game);
-        return "redirect:/games";
+        return "redirect:/startMenu/games";
     }
     @GetMapping("/games/details/{id}")
     public String getGame(Model model, @PathVariable long id){
         Game game = gameService.readGame(id);
         if(game == null)
-            //return "redirect:/error";
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         model.addAttribute("game",game);
         return "game-details";
@@ -43,9 +43,8 @@ public class GameController {
     public String deleteGame(@PathVariable long id){
         Game game = gameService.deleteGame(id);
         if(game == null)
-            //return "redirect:/error";
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
-        return "redirect:/games";
+        return "redirect:/startMenu/games";
     }
     @GetMapping("/games/update/{id}")
     public String updateGameForm(Model model, @PathVariable long id){
@@ -59,8 +58,8 @@ public class GameController {
     public String updateGame(@PathVariable long id, Game updatedGame){
         Game game = gameService.updateGame(id,updatedGame);
         if(game == null)
-            return "redirect:/error";
-        return "redirect:/games/details/"+id;
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
+        return "redirect:/startMenu/games/details/"+id;
     }
 
     @ExceptionHandler({ResponseStatusException.class})
@@ -68,7 +67,7 @@ public class GameController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("message-error");
         modelAndView.addObject("message",ex.getReason());
-        modelAndView.addObject("redirect","/games");
+        modelAndView.addObject("redirect","/startMenu/games");
         return modelAndView;
     }
 }

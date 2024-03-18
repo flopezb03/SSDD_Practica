@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>{{game.name}}</h1>
-<form action="/games/update/{{game.id}}" method="post" onsubmit="return validateGameForms()">
+<form action="/startMenu/games/update/{{game.id}}" method="post" onsubmit="return validateGameForms()">
     <label for="name">Name: </label>
     <input type="text" id="name" name="name"><br><br>
 
@@ -17,7 +17,7 @@
     <input type="text" id="duration" name="duration"><br><br>
 
     <input type="submit" value="Confirm changes">
-    <p><a href="/games/details/{{game.id}}">Back</a> </p>
+    <p><a href="/startMenu/games/details/{{game.id}}">Back</a> </p>
 </form>
 </body>
 </html>
