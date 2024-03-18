@@ -1,16 +1,21 @@
-package es.ssdd.Practica1.controllers.webControllers;
+package es.ssdd.Practica1.controllers.web;
 import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.services.CharacterService;
+import es.ssdd.Practica1.util.ErrorMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/startMenu/characters")
 public class CharacterController {
     @Autowired
     CharacterService charService;
+    ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
 
     //Read operations
     @GetMapping
@@ -23,7 +28,7 @@ public class CharacterController {
     public String showCharacter(@PathVariable Long id,Model model){
         CharacterInGame charToShow = charService.getCharacter(id);
         if(charToShow == null)
-            return "redirect: /startMenu/characters";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
         else {
             model.addAttribute("character", charToShow);
             return "showCharacter";
@@ -45,7 +50,9 @@ public class CharacterController {
     //Delete operation
     @GetMapping("/{id}/delete")
     public String deleteCharacter(@PathVariable Long id){
-        charService.deleteCharacter(id);
+        CharacterInGame charToDelete = charService.deleteCharacter(id);
+        if(charToDelete == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
         return "redirect:/startMenu/characters";
     }
 
@@ -54,7 +61,7 @@ public class CharacterController {
     public String showPutCharacterForm(@PathVariable Long id,Model model){
         CharacterInGame charToEdit = charService.getCharacter(id);
         if (charToEdit == null)
-            return "redirect:/startMenu/characters";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
         else {
             model.addAttribute("character",charToEdit);
             return "putCharForm";
@@ -67,6 +74,9 @@ public class CharacterController {
         charService.putCharacter(id,character);
         return "redirect:/startMenu/characters";
     }
-
+    @ExceptionHandler({ResponseStatusException.class})
+    public ModelAndView handleException(ResponseStatusException ex){
+        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/characters");
+    }
 
 }

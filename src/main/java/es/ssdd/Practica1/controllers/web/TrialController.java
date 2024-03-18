@@ -2,10 +2,14 @@ package es.ssdd.Practica1.controllers.web;
 
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
+import es.ssdd.Practica1.util.ErrorMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/startMenu")
 @Controller
@@ -13,6 +17,7 @@ public class TrialController {
 
     @Autowired
     private TrialService trialService;
+    ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
 
     @GetMapping("/trials")
     public String showAllTrials (Model model){
@@ -36,6 +41,8 @@ public class TrialController {
     @GetMapping("/trials/details/{id}")
     public String showTrial (Model model, @PathVariable long id) {
         Trial trial = trialService.getTrial(id);
+        if(trial == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         model.addAttribute("trial", trial);
         return "trial-details";
     }
@@ -44,14 +51,14 @@ public class TrialController {
     public String deleteTrial (@PathVariable long id){
         Trial deleted = trialService.deleteTrial(id);
         if (deleted == null)
-            return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         return "redirect:/startMenu/trials";
     }
     @GetMapping ("/trials/update/{id}")
     public String showUpdateForm(Model model, @PathVariable long id){
         Trial toUpdate = trialService.getTrial(id);
         if (toUpdate == null)
-            return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         model.addAttribute("trial", toUpdate);
         return "trial-update";
     }
@@ -59,9 +66,12 @@ public class TrialController {
     public String updateTrial (@PathVariable long id, Trial trial){
         Trial toUpdate = trialService.updateTrial(id, trial);
         if (toUpdate == null)
-            return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         return "redirect:/startMenu/trials";
     }
-
+    @ExceptionHandler({ResponseStatusException.class})
+    public ModelAndView handleException(ResponseStatusException ex){
+        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/trials");
+    }
 
 }

@@ -1,6 +1,7 @@
 package es.ssdd.Practica1.controllers.web;
 
 import es.ssdd.Practica1.entities.Game;
+import es.ssdd.Practica1.util.ErrorMessageHandler;
 import es.ssdd.Practica1.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +17,7 @@ public class GameController {
 
     @Autowired
     GameService gameService;
+    ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
 
     @GetMapping("/games")
     public String getAllGame(Model model){
@@ -50,7 +52,7 @@ public class GameController {
     public String updateGameForm(Model model, @PathVariable long id){
         Game game = gameService.readGame(id);
         if(game == null)
-            return "redirect:/error";
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         model.addAttribute("game",game);
         return "game-update";
     }
@@ -64,10 +66,6 @@ public class GameController {
 
     @ExceptionHandler({ResponseStatusException.class})
     public ModelAndView handleException(ResponseStatusException ex){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("message-error");
-        modelAndView.addObject("message",ex.getReason());
-        modelAndView.addObject("redirect","/startMenu/games");
-        return modelAndView;
+        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/games");
     }
 }
