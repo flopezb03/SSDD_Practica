@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Adding a new character</h1>
-    <form action="/startMenu/characters/addCharacter" method="post">
+    <form action="/startMenu/characters/addCharacter" method="post" onsubmit="return validateCharacterForms()">
         <label for="name"> Name of the new character</label>
         <input type = "text" id="name" name="name">
 

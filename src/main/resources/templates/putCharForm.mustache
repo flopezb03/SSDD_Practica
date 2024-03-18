@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Editing the character</h1>
-    <form id = "putForm" action="/startMenu/characters/{{character.idChar}}/put" method="post">
+    <form id = "putForm" action="/startMenu/characters/{{character.idChar}}/put" method="post" onsubmit="return validateCharacterForms()">
         <!--<input type="hidden" name="idChar" value="{{character.idChar}}">-->
         <label for="name">Updated Name of the character</label>
         <input type = "text" id="name" name="name" value = "{{character.name}}">
