@@ -1,4 +1,4 @@
-package es.ssdd.Practica1.controllers.restControllers;
+package es.ssdd.Practica1.controllers.rest;
 
 import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.services.CharacterService;
