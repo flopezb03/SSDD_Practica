@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Trial creation</title>
+    <title>Trial update</title>
     <script type= "text/javascript" src="/validateForms.js"></script>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<h1>Trial creation</h1>
+<h1>Trial update</h1>
 <form name="trialUForm" action="/startMenu/trials/update/{{trial.trial_id}}" method="post" onsubmit="return validateTrialForms()">
     <table>
         <tr>
@@ -22,7 +23,7 @@
         </tr>
         <tr>
             <td><input type="submit" value="Edit"></td>
-            <td><button onclick="window.location.href='/startMenu/trials'">Cancel</button><</td>
+            <td><button onclick="window.location.href='/startMenu/trials'">Cancel</button></td>
         </tr>
     </table>
     </form>
