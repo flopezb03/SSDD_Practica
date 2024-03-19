@@ -7,13 +7,24 @@
 <body>
     <h1>Trial creation</h1>
     <form name="trialCForm" action="/startMenu/trials/create" method="post" onsubmit="return validateTrialForms()">
-        <label for="chapter">Chapter:</label>
-        <input type="text" id="chapter" name="chapter"><br><br>
-        <label for="decor">Trial ground decor:</label>
-        <input type="text" id="decor" name="decor"><br><br>
-        <label for="summary">Trial summary:</label>
-        <textarea id="summary" name="summary"></textarea><br><br>
-        <input type="submit" value="Create">
+        <table>
+            <tr>
+                <th><label for="chapter">Chapter:</label></th>
+                <td><input type="text" id="chapter" name="chapter"></td>
+            </tr>
+            <tr>
+                <th><label for="decor">Trial ground decor:</label> </th>
+                <td><input type="text" id="decor" name="decor"> </td>
+            </tr>
+            <tr>
+                <th><label for="summary">Trial summary: </label> </th>
+                <td><textarea id="summary" name="summary" ></textarea><br><br> </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Create"></td>
+                <td><button onclick="window.location.href='/startMenu/trials'">Cancel</button><</td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <title>Trial list</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Trials</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Trial id</th>
+            <th>Summary</th>
+        </tr>
         {{#ltrials}}
-            <li>
-                <a href="/startMenu/trials/details/{{trial_id}}">{{summary}}</a>
-            </li>
+            <tr>
+                <td>{{trial_id}}</td>
+                <td><a href="/startMenu/trials/details/{{trial_id}}">{{summary}}</a></td>
+            </tr>
         {{/ltrials}}
-    </ul>
-    <button ><a href="/startMenu/trials/create">Create Trial</a></button>
-    <button ><a href="/startMenu">Main menu</a></button>
+        <tr>
+            <td><button onclick="window.location.href='/startMenu/trials/create'">Create Trial</button></td>
+            <td><button onclick="window.location.href='/startMenu'">>Main menu</button></td>
+        </tr>
+    </table>
+    <h1>Trials</h1>
 </body>
 </html>
