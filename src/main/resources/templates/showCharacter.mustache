@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Character Information</title>
-    <link rel="stylesheet" href="/css/characterStyleSheet.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1> {{character.name}} {{character.surname}}</h1>
-    <p>Like: {{character.like}}</p>
-    <p>Dislike: {{character.dislike}}</p>
-    <p>Talent: {{character.talent}}</p>
-    <p>Height: {{character.height}}</p>
-
-    <a href = "/startMenu/characters/{{character.idChar}}/delete"> Delete character</a>
-    <a href = "/startMenu/characters/{{character.idChar}}/put"> Edit character</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td colspan="2">{{character.name}}</td>>
+        </tr>
+        <tr>
+            <th>Surname</th>
+            <td colspan="2">{{character.surname}}<td>
+        </tr>
+        <tr>
+            <th>What does it like</th>
+            <td colspan="2">{{character.like}}</td>
+        </tr>
+        <tr>
+            <th>What does it dislike</th>
+            <td colspan="2">{{character.dislike}}</td>
+        </tr>
+        <tr>
+            <th>Character Talent</th>
+            <td colspan="2">{{character.talent}}</td>
+        </tr>
+        <tr>
+            <th>Height</th>
+            <td colspan="2">{{character.height}} m</td>
+        </tr>
+        <tr>
+            <td><button onclick="window.location.href='/startMenu/characters/update/{{character.idChar}}'">Update</button></td>
+            <td><button onclick="window.location.href='/startMenu/characters/delete/{{character.idChar}}'">Delete</button></td>
+            <td><button onclick="window.location.href='/startMenu/characters'">Table of all characters</button></td>
+        </tr>
+    </table>
 </body>
 </html>

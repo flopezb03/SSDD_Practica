@@ -3,16 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Characters</title>
+    <link rel="stylesheet" href = "/css/style.css">
 </head>
 <body>
     <h1>Characters in game</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Character ID</th>
+            <th>Name & Surname</th>
+        </tr>
         {{#characters}}
-        <li>
-            <a href="/startMenu/characters/{{idChar}}">{{name}} {{surname}}</a>
-        </li>
+        <tr>
+            <td>{{idChar}}</td>
+            <td><a href="/startMenu/characters/details/{{idChar}}">{{name}} {{surname}}</a></td>
+        </tr>
         {{/characters}}
-    </ul>
-    <a href="/startMenu/characters/addCharacter">Add a character</a>
+        <tr>
+            <td><button onclick="window.location.href='/startMenu/characters/create'">Create Character</button></td>
+            <td><button onclick="window.location.href='/startMenu'">Main menu</button></td>
+        </tr>
+    </table>
+
+
+
 </body>
 </html>

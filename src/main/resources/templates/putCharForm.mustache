@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Character</title>
-    <script type= "text/javascript" src="/validateForms.js"></script>
 </head>
 <body>
     <h1>Editing the character</h1>
-    <form id = "putForm" action="/startMenu/characters/{{character.idChar}}/put" method="post" onsubmit="return validateCharacterForms()">
+    <form id = "putForm" action="/startMenu/characters/update/{{character.idChar}}" method="post" onsubmit="return validateCharacterForms()">
         <label for="name">Updated Name of the character</label>
         <input type = "text" id="name" name="name" value = "{{character.name}}">
 
