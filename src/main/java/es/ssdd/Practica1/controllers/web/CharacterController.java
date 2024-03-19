@@ -21,7 +21,7 @@ public class CharacterController {
     @GetMapping("/characters")
     public String showAllCharacters(Model model){
         model.addAttribute("characters",charService.getAllCharacter());
-        return "showAllCharacters";
+        return "characters";
     }
 
     @GetMapping("/characters/details/{id}")
@@ -31,7 +31,7 @@ public class CharacterController {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
         else {
             model.addAttribute("character", charToShow);
-            return "showCharacter";
+            return "character-details";
         }
     }
 
@@ -39,7 +39,7 @@ public class CharacterController {
     @GetMapping("/characters/create")
     public String createCharacterForm(Model model){
         model.addAttribute("character",new CharacterInGame());
-        return "addCharForm";
+        return "character-create";
     }
     @PostMapping("/characters/create")
     public String addCharacter(CharacterInGame character){
@@ -64,7 +64,7 @@ public class CharacterController {
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
         else {
             model.addAttribute("character",charToEdit);
-            return "putCharForm";
+            return "character-update";
         }
     }
 
