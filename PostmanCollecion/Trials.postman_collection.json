@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "cb35749c-26ed-4f7d-b444-c87eba644a70",
+		"name": "Trials",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33659851"
+	},
+	"item": [
+		{
+			"name": "Add trial 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"chapter\": 1,\r\n        \"decor\": \"Bright colors\",\r\n        \"summary\": \"When our protagonists closest friend is killed, is up to him to unravel the truth of this case\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/trials",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add trial 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"chapter\": 2,\r\n        \"decor\": \"Factory environment\",\r\n        \"summary\": \"Two meeks after the first kill, another tragedy has happened\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/trials",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all trials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/trials",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get trial 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/trials/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial update trial 1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chapter\": 3,\r\n    \"decor\": \"Factory environment\",\r\n    \"summary\": \"Two weeks after the first kill, two other tragedies have happened\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/trials/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total update trial 0",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"chapter\": 5,\r\n    \"decor\": \"Half-burned trial grounds\",\r\n    \"summary\": \"When our protagonists closest friend is killed, is up to him to unravel the truth of this case\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/trials/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete trial 0",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/trials/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trials",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
