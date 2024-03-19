@@ -71,6 +71,6 @@ public class TrialController {
     }
     @ExceptionHandler({ResponseStatusException.class})
     public ModelAndView handleException(ResponseStatusException ex){
-        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/trials");
+        return errorMessageHandler.errorMessage("Error "+ex.getStatusCode().value()+": "+ex.getReason(),"/startMenu/trials");
     }
 }

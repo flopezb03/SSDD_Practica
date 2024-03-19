@@ -76,7 +76,7 @@ public class CharacterController {
     }
     @ExceptionHandler({ResponseStatusException.class})
     public ModelAndView handleException(ResponseStatusException ex){
-        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/characters");
+        return errorMessageHandler.errorMessage("Error "+ex.getStatusCode().value()+": "+ex.getReason(),"/startMenu/characters");
     }
 
 }

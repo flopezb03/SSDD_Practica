@@ -66,6 +66,6 @@ public class GameController {
 
     @ExceptionHandler({ResponseStatusException.class})
     public ModelAndView handleException(ResponseStatusException ex){
-        return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/games");
+        return errorMessageHandler.errorMessage("Error "+ex.getStatusCode().value()+": "+ex.getReason(),"/startMenu/games");
     }
 }
