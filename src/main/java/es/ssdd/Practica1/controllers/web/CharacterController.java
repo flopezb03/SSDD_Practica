@@ -37,7 +37,7 @@ public class CharacterController {
 
     //Create operation
     @GetMapping("/addCharacter")
-    public String showAddCharForm(Model model){
+    public String createCharacterForm(Model model){
         model.addAttribute("character",new CharacterInGame());
         return "addCharForm";
     }
@@ -58,7 +58,7 @@ public class CharacterController {
 
     //Update operations
     @GetMapping("/{id}/put")
-    public String showPutCharacterForm(@PathVariable Long id,Model model){
+    public String updateCharacterForm(@PathVariable Long id, Model model){
         CharacterInGame charToEdit = charService.getCharacter(id);
         if (charToEdit == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
@@ -69,7 +69,7 @@ public class CharacterController {
     }
 
     @PostMapping("/{id}/put")
-    public String putCharacter(@PathVariable Long id,CharacterInGame character){
+    public String updateCharacter(@PathVariable Long id, CharacterInGame character){
         character.setIdChar(id);
         charService.putCharacter(id,character);
         return "redirect:/startMenu/characters";

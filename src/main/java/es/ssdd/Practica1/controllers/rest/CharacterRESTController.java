@@ -31,7 +31,7 @@ public class CharacterRESTController {
     }
 
     @PostMapping
-    public ResponseEntity<CharacterInGame> postCharacter(@RequestBody CharacterInGame character){
+    public ResponseEntity<CharacterInGame> createCharacter(@RequestBody CharacterInGame character){
         CharacterInGame charSaved = charService.createCharacter(character);
         if (charSaved == null){
             return ResponseEntity.status(400).build();
@@ -41,7 +41,7 @@ public class CharacterRESTController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CharacterInGame> removeCharacter(@PathVariable Long id){
+    public ResponseEntity<CharacterInGame> deleteCharacter(@PathVariable Long id){
         CharacterInGame charDeleted = charService.deleteCharacter(id);
         if (charDeleted == null){
             return ResponseEntity.notFound().build();

@@ -20,7 +20,7 @@ public class GameController {
     ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
 
     @GetMapping("/games")
-    public String getAllGame(Model model){
+    public String showAllGame(Model model){
         model.addAttribute("games", gameService.getAllGame());
         return "games";
     }
@@ -34,8 +34,8 @@ public class GameController {
         return "redirect:/startMenu/games";
     }
     @GetMapping("/games/details/{id}")
-    public String getGame(Model model, @PathVariable long id){
-        Game game = gameService.readGame(id);
+    public String showGame(Model model, @PathVariable long id){
+        Game game = gameService.getGame(id);
         if(game == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         model.addAttribute("game",game);
@@ -50,7 +50,7 @@ public class GameController {
     }
     @GetMapping("/games/update/{id}")
     public String updateGameForm(Model model, @PathVariable long id){
-        Game game = gameService.readGame(id);
+        Game game = gameService.getGame(id);
         if(game == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         model.addAttribute("game",game);
@@ -58,7 +58,7 @@ public class GameController {
     }
     @PostMapping("/games/update/{id}")
     public String updateGame(@PathVariable long id, Game updatedGame){
-        Game game = gameService.updateGame(id,updatedGame);
+        Game game = gameService.putGame(id,updatedGame);
         if(game == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         return "redirect:/startMenu/games/details/"+id;

@@ -22,10 +22,10 @@ public class GameService {
         games.put(id,game);
         return game;
     }
-    public Game readGame(long id){
+    public Game getGame(long id){
         return games.get(id);
     }
-    public Game updateGame(long id, Game updatedGame){
+    public Game putGame(long id, Game updatedGame){
         Game oldGame = games.get(id);
         if(oldGame == null)
             return null;

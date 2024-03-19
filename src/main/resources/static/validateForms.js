@@ -1,7 +1,7 @@
 function validateGameForms() {
-    var name = document.forms[0]["name"].value;
-    var releaseYear = document.forms[0]["releaseYear"].value;
-    var duration = document.forms[0]["duration"].value;
+    let name = document.forms[0]["name"].value;
+    let releaseYear = document.forms[0]["releaseYear"].value;
+    let duration = document.forms[0]["duration"].value;
     if(name === ""){
         alert("The game must have a name");
         return false
@@ -33,9 +33,9 @@ function validateGameForms() {
     return true;
 }
 function validateTrialForms(){
-    var chapter = document.forms[0]["chapter"].value;
-    var decor = document.forms[0]["decor"].value;
-    var summary = document.forms[0]["summary"].value;
+    let chapter = document.forms[0]["chapter"].value;
+    let decor = document.forms[0]["decor"].value;
+    let summary = document.forms[0]["summary"].value;
     if(chapter === ""){
         alert("The trial must belong to a chapter");
         return false;
@@ -60,12 +60,12 @@ function validateTrialForms(){
 }
 
 function validateCharacterForms(){
-    var name = document.forms[0]["name"].value;
-    var surname = document.forms[0]["surname"].value;
-    var like = document.forms[0]["like"].value;
-    var dislike = document.forms[0]["dislike"].value;
-    var talent = document.forms[0]["talent"].value;
-    var height = document.forms[0]["height"].value;
+    let name = document.forms[0]["name"].value;
+    let surname = document.forms[0]["surname"].value;
+    let like = document.forms[0]["like"].value;
+    let dislike = document.forms[0]["dislike"].value;
+    let talent = document.forms[0]["talent"].value;
+    let height = document.forms[0]["height"].value;
 
     if(name === ""){
         alert("The character must have a name");

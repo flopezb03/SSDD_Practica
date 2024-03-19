@@ -26,7 +26,7 @@ public class TrialController {
     }
 
     @GetMapping("/trials/create")
-    public String addTrialForm(Model model){
+    public String createTrialForm(Model model){
         model.addAttribute("trial", new Trial());
         return "trial-create";
     }
@@ -55,7 +55,7 @@ public class TrialController {
         return "redirect:/startMenu/trials";
     }
     @GetMapping ("/trials/update/{id}")
-    public String showUpdateForm(Model model, @PathVariable long id){
+    public String updateTrialForm(Model model, @PathVariable long id){
         Trial toUpdate = trialService.getTrial(id);
         if (toUpdate == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
