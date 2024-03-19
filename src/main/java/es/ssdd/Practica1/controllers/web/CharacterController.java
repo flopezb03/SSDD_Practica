@@ -11,20 +11,20 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/startMenu/characters")
+@RequestMapping("/startMenu")
 public class CharacterController {
     @Autowired
     CharacterService charService;
     ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
 
     //Read operations
-    @GetMapping
+    @GetMapping("/characters")
     public String showAllCharacters(Model model){
         model.addAttribute("characters",charService.getAllCharacter());
         return "showAllCharacters";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/characters/details/{id}")
     public String showCharacter(@PathVariable Long id,Model model){
         CharacterInGame charToShow = charService.getCharacter(id);
         if(charToShow == null)
@@ -36,19 +36,19 @@ public class CharacterController {
     }
 
     //Create operation
-    @GetMapping("/addCharacter")
+    @GetMapping("/characters/create")
     public String createCharacterForm(Model model){
         model.addAttribute("character",new CharacterInGame());
         return "addCharForm";
     }
-    @PostMapping("/addCharacter")
+    @PostMapping("/characters/create")
     public String addCharacter(CharacterInGame character){
         charService.createCharacter(character);
         return "redirect:/startMenu/characters";
     }
 
     //Delete operation
-    @GetMapping("/{id}/delete")
+    @GetMapping("/characters/delete/{id}")
     public String deleteCharacter(@PathVariable Long id){
         CharacterInGame charToDelete = charService.deleteCharacter(id);
         if(charToDelete == null)
@@ -57,7 +57,7 @@ public class CharacterController {
     }
 
     //Update operations
-    @GetMapping("/{id}/put")
+    @GetMapping("/characters/update/{id}")
     public String updateCharacterForm(@PathVariable Long id, Model model){
         CharacterInGame charToEdit = charService.getCharacter(id);
         if (charToEdit == null)
@@ -68,7 +68,7 @@ public class CharacterController {
         }
     }
 
-    @PostMapping("/{id}/put")
+    @PostMapping("/characters/update/{id}")
     public String updateCharacter(@PathVariable Long id, CharacterInGame character){
         character.setIdChar(id);
         charService.putCharacter(id,character);
