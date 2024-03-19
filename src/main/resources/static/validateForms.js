@@ -52,10 +52,10 @@ function validateTrialForms(){
         alert("The trial must have decoration");
         return false;
     }
-    /*if(summary === ""){
+    if(summary === ""){
         alert("The trial must have a summary");
         return false;
-    }*/
+    }
     return true;
 }
 

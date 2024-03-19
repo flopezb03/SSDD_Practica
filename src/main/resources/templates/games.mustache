@@ -2,15 +2,25 @@
 <html>
 <head>
     <title>Videogames list</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <h1>Videogames list</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Game id</th>
+            <th>Name</th>
+        </tr>
         {{#games}}
-            <li><a href="/startMenu/games/details/{{id}}">{{name}}</a><a href="/startMenu/games/update/{{id}}">Edit</a><a href="/startMenu/games/delete/{{id}}">Delete</a> </li>
+            <tr>
+                <td>{{id}}</td>
+                <td><a href="/startMenu/games/details/{{id}}">{{name}}</a></td>
+            </tr>
         {{/games}}
-    </ul>
-    <p><a href="/startMenu/games/create">Create Videogame</a> </p>
-    <p><a href="/startMenu">Back</a> </p>
+        <tr>
+            <td><button onclick="window.location.href='/startMenu/games/create'">Create Videogame</button></td>
+            <td><button onclick="window.location.href='/startMenu'">Main menu</button></td>
+        </tr>
+    </table>
 </body>
 </html>

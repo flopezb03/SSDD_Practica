@@ -3,21 +3,29 @@
 <head>
     <title>Videogame edit</title>
     <script src="/validateForms.js"></script>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <h1>{{game.name}}</h1>
 <form action="/startMenu/games/update/{{game.id}}" method="post" onsubmit="return validateGameForms()">
-    <label for="name">Name: </label>
-    <input type="text" id="name" name="name"><br><br>
-
-    <label for="releaseYear">Release year: </label>
-    <input type="text" id="releaseYear" name="releaseYear"><br><br>
-
-    <label for="duration">Duration: </label>
-    <input type="text" id="duration" name="duration"><br><br>
-
-    <input type="submit" value="Confirm changes">
-    <p><a href="/startMenu/games/details/{{game.id}}">Back</a> </p>
+    <table>
+        <tr>
+            <th><label for="name">Name: </label></th>
+            <td><input type="text" id="name" name="name"></td>
+        </tr>
+        <tr>
+            <th><label for="releaseYear">Release year: </label> </th>
+            <td><input type="text" id="releaseYear" name="releaseYear"> </td>
+        </tr>
+        <tr>
+            <th><label for="duration">Duration: </label> </th>
+            <td><input type="text" id="duration" name="duration"> </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Edit"></td>
+            <td><button onclick="window.location.href='/startMenu/games'">Cancel</button></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
