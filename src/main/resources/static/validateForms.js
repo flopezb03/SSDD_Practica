@@ -71,10 +71,10 @@ function validateCharacterForms(){
         alert("The character must have a name");
         return false;
     }
-    /*if(surname === ""){
+    if(surname === ""){
         alert("The character must have a surname");
         return false;
-    }*/
+    }
     if(like === ""){
         alert("The character must have a like");
         return false;
