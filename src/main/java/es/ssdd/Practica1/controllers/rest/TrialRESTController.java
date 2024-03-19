@@ -41,14 +41,18 @@ public class TrialRESTController {
     }
 
     @PutMapping("trials/{id}")
-    public ResponseEntity<Trial> updateTrial(@PathVariable long id, @RequestBody Trial trial){
-        Trial updated = trialService.updateTrial(id,trial);
+    public ResponseEntity<Trial> putTrial(@PathVariable long id, @RequestBody Trial trial){
+        Trial updated = trialService.putTrial(id,trial);
         if (trial == null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.status(201).body(updated);
+        return ResponseEntity.status(200).body(updated);
     }
 
-
-
-
+    @PatchMapping("trials/{id}")
+    public ResponseEntity<Trial> patchTrial(@PathVariable long id, @RequestBody Trial trial){
+        Trial updated = trialService.patchTrial(id,trial);
+        if (trial == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.status(200).body(updated);
+    }
 }

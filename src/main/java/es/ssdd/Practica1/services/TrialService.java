@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -15,21 +14,6 @@ public class TrialService {
     AtomicLong nextTrialId = new AtomicLong();
 
     public TrialService(){
-        Trial t1 = new Trial();
-        t1.setChapter(1);
-        t1.setDecor("Bright colors");
-        t1.setSummary("Oh no!");
-        long id = nextTrialId.getAndIncrement();
-        t1.setTrial_id(id);
-        trialMap.put(id,t1);
-
-        Trial t2 = new Trial();
-        t2.setChapter(1);
-        t2.setDecor("Factory environment");
-        t2.setSummary("Mamma mia!");
-        id = nextTrialId.getAndIncrement();
-        t2.setTrial_id(id);
-        trialMap.put(id,t2);
     }
     public Trial createTrial(Trial trial){
         long id = nextTrialId.getAndIncrement();
@@ -48,7 +32,16 @@ public class TrialService {
         return trialMap.get(id);
     }
 
-    public Trial updateTrial(Long id, Trial trial){
+    public Trial putTrial(long id, Trial trial){
+        Trial updatedTrial = trialMap.get(id);
+        if(updatedTrial == null)
+            return null;
+        updatedTrial.setTrial_id(id);
+        trialMap.put(id,updatedTrial);
+        return trial;
+    }
+
+    public Trial patchTrial(Long id, Trial trial){
         Trial updateTrial = trialMap.get(id);
         if (updateTrial == null)
             return null;

@@ -32,7 +32,7 @@ public class TrialController {
     }
 
     @PostMapping("/trials/create")
-    public String createTrial (Model model, Trial trial){
+    public String createTrial (Trial trial){
         trialService.createTrial(trial);
         return "redirect:/startMenu/trials";
     }
@@ -64,7 +64,7 @@ public class TrialController {
     }
     @PostMapping("/trials/update/{id}")
     public String updateTrial (@PathVariable long id, Trial trial){
-        Trial toUpdate = trialService.updateTrial(id, trial);
+        Trial toUpdate = trialService.putTrial(id, trial);
         if (toUpdate == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         return "redirect:/startMenu/trials";
@@ -73,5 +73,4 @@ public class TrialController {
     public ModelAndView handleException(ResponseStatusException ex){
         return errorMessageHandler.errorMessage(ex.getReason(),"/startMenu/trials");
     }
-
 }
