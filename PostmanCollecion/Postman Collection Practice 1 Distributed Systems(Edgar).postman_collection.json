@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "89fe0e3a-1673-42be-a703-e3cee224bfcd",
+		"name": "Postman Collection Practice 1 Distributed Systems(Edgar)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33638518"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/characters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters",
+				"description": "Post crud operation example"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters",
+				"description": "Get characters operation to see if the new one is added"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Zhongli\",\r\n    \"surname\":\"Geo Archeon\",\r\n    \"dislike\":\"Celestia\",\r\n    \"like\":\"Guizhong\",\r\n    \"talent\":\"calm person\",\r\n    \"height\":1.75\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters/1",
+				"description": "Add crud operation example"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters/2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Zhongli\",\r\n    \"surname\":\"Geo Archeon\",\r\n    \"dislike\":\"Celestia\",\r\n    \"like\":\"Guizhong\",\r\n    \"talent\":\"calm person\",\r\n    \"height\":1.75\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters/2",
+				"description": "Put crud operation example"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters",
+				"description": "You can see how the name and surname of the edited character are updated"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters/2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Zhongli\",\r\n    \"surname\":\"Geo Archeon\",\r\n    \"dislike\":\"Celestia\",\r\n    \"like\":\"Guizhong\",\r\n    \"talent\":\"calm person\",\r\n    \"height\":1.75\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters/2",
+				"description": "To see the complete updated details"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters/1",
+				"description": "Delete operation example"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/characters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ganyu\",\r\n    \"surname\":\"Adeptus\",\r\n    \"dislike\":\"People touching my horns\",\r\n    \"like\":\"Keqing\",\r\n    \"talent\":\"sleep\",\r\n    \"height\":1.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/characters",
+				"description": "To check the delete was done right and went smooth."
+			},
+			"response": []
+		}
+	]
+}
