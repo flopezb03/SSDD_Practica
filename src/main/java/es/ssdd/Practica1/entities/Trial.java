@@ -1,12 +1,19 @@
 package es.ssdd.Practica1.entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Trial {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long trial_id;
     private int chapter;
     private String decor;
     private String summary;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Game game;
     public Trial() {
     }
 
