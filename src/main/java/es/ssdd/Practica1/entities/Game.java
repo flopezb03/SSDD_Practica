@@ -1,11 +1,21 @@
 package es.ssdd.Practica1.entities;
 
-public class Game {
+import jakarta.persistence.*;
 
-    private long id;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class Game {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private Integer releaseYear;
     private Integer duration;
+
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Trial> trials = new HashSet<>();
 
     public Game(){}
     public Game(long id, String name, int releaseYear, int duration) {
