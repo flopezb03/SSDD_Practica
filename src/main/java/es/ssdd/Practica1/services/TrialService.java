@@ -1,56 +1,60 @@
 package es.ssdd.Practica1.services;
 
 import es.ssdd.Practica1.entities.Trial;
+import es.ssdd.Practica1.repositories.TrialRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Optional;
 
 @Service
 public class TrialService {
-    Map<Long,Trial> trialMap = new HashMap<>();
-    AtomicLong nextTrialId = new AtomicLong();
+
+    @Autowired
+    private TrialRepository trialRepository;
 
     public TrialService(){
     }
     public Trial createTrial(Trial trial){
-        long id = nextTrialId.getAndIncrement();
-        trial.setTrial_id(id);
-        return trialMap.put(id,trial);
+        return trialRepository.save(trial);
     }
     public Trial deleteTrial(Long id){
-        return trialMap.remove(id);
-    }
-
-    public Collection<Trial> getAllTrials (){
-        return trialMap.values();
-    }
-
-    public Trial getTrial (Long id){
-        return trialMap.get(id);
-    }
-
-    public Trial putTrial(long id, Trial trial){
-        Trial updatedTrial = trialMap.get(id);
-        if(updatedTrial == null)
+        Optional<Trial> byId = trialRepository.findById(id);
+        if (byId.isEmpty())
             return null;
-        updatedTrial.setTrial_id(id);
-        trialMap.put(id,updatedTrial);
+        Trial trial = byId.get();
+        trialRepository.deleteById(id);
         return trial;
     }
 
-    public Trial patchTrial(Long id, Trial trial){
-        Trial updateTrial = trialMap.get(id);
-        if (updateTrial == null)
+    public Collection<Trial> getAllTrials (){
+        return trialRepository.findAll();
+    }
+
+    public Trial getTrial (Long id){
+        Optional<Trial> byId = trialRepository.findById(id);
+        return byId.orElse(null);
+    }
+
+    public Trial putTrial(long id, Trial trial){
+        Optional<Trial> byId = trialRepository.findById(id);
+        if (byId.isEmpty())
             return null;
+        return trialRepository.save(trial);
+    }
+
+    public Trial patchTrial(Long id, Trial trial){
+        Optional<Trial> byId = trialRepository.findById(id);
+        if (byId.isEmpty())
+            return null;
+        Trial updateTrial = byId.get();
         if (trial.getChapter() != 0)
             updateTrial.setChapter(trial.getChapter());
         if (trial.getDecor() != null)
             updateTrial.setDecor(trial.getDecor());
         if (trial.getSummary() != null)
             updateTrial.setSummary(trial.getSummary());
-        return updateTrial;
+        return trialRepository.save(updateTrial);
     }
 }
