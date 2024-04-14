@@ -2,6 +2,9 @@ package es.ssdd.Practica1.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Trial {
 
@@ -14,6 +17,14 @@ public class Trial {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @ManyToMany
+    @JoinTable(
+            name = "trial_participants",
+            joinColumns = @JoinColumn(name = "trial_id"),
+            inverseJoinColumns = @JoinColumn(name = "character_id")
+    )
+    private Set<CharacterInGame> participants = new HashSet<>();
     public Trial() {
     }
 
