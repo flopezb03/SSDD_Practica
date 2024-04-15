@@ -18,8 +18,7 @@ public class Game {
     private Set<Trial> trials = new HashSet<>();
 
     public Game(){}
-    public Game(long id, String name, int releaseYear, int duration) {
-        this.id = id;
+    public Game(String name, int releaseYear, int duration) {
         this.name = name;
         this.releaseYear = releaseYear;
         this.duration = duration;
@@ -55,5 +54,13 @@ public class Game {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Set<Trial> getTrials() {
+        return trials;
+    }
+
+    public void setTrials(Set<Trial> trials) {
+        this.trials = trials;
     }
 }

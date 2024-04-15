@@ -1,6 +1,7 @@
 package es.ssdd.Practica1.services;
 
 import es.ssdd.Practica1.entities.Game;
+import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ public class GameService {
     private GameRepository gameRepository;
     //private final Map<Long, Game> games= new HashMap();
     //private final AtomicLong nextId = new AtomicLong();
-
 
 
     public Game createGame(Game game){
@@ -86,5 +86,12 @@ public class GameService {
     public Collection<Game> getAllGame(){
         return gameRepository.findAll();
         //return games.values();
+    }
+    public Collection<Trial> getAllTrials(long id){
+        Optional<Game> game = gameRepository.findById(id);
+        if(game.isEmpty())
+            return null;
+
+        return game.get().getTrials();
     }
 }
