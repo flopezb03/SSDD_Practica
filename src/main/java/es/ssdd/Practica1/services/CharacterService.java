@@ -1,38 +1,33 @@
 package es.ssdd.Practica1.services;
 
 import es.ssdd.Practica1.entities.CharacterInGame;
+import es.ssdd.Practica1.repositories.CharacterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Optional;
 
 @Service
 public class CharacterService {
     //CharacterService Attributes
-    private final Map<Long, CharacterInGame> characterMap = new HashMap<>();
-    private final AtomicLong idGenerator = new AtomicLong();
+    @Autowired
+    private CharacterRepository charRepository;
 
     public CharacterService(){
         CharacterInGame char1 = new CharacterInGame("Edgar","Gutierrez Pleite","Low marks","The shiniest star","math",1.6d);
-        Long id = idGenerator.getAndIncrement();
-        char1.setIdChar(id);
-        characterMap.put(id,char1);
+        charRepository.save(char1);
         CharacterInGame char2 = new CharacterInGame("Keqing","Liyue","Lazy people","Ganyu","Sword master",1.5d);
-        id = idGenerator.getAndIncrement();
-        char2.setIdChar(id);
-        characterMap.put(id,char2);
+        charRepository.save(char2);
     }
 
     //CRUD opetarions
 
     //Create operation(C)
     public CharacterInGame createCharacter(CharacterInGame character){
-        if (!characterMap.containsValue(character)) {
-            Long idChar = idGenerator.getAndIncrement();
-            character.setIdChar(idChar);
-            characterMap.put(idChar, character);
+        boolean alreadyExists = charRepository.findAll().contains(character);
+        if (!alreadyExists) {
+            charRepository.save(character);
             return (character);
         }else{
             return null;
@@ -44,11 +39,12 @@ public class CharacterService {
     getAllCharacters to read every character in the map
     * */
     public CharacterInGame getCharacter(Long id){
-        return characterMap.get(id);
+        Optional<CharacterInGame> charToGet = charRepository.findById(id);
+        return  charToGet.orElse(null);
     }
 
     public Collection<CharacterInGame> getAllCharacter(){
-        return characterMap.values();
+        return charRepository.findAll();
     }
 
     //Update operations
@@ -56,17 +52,18 @@ public class CharacterService {
       patchCharacter for partial update of some attributes
     */
     public CharacterInGame putCharacter(Long id, CharacterInGame character){
-        if (characterMap.containsKey(id)){
-            character.setIdChar(id);
-            characterMap.put(id,character);
-            return character;
-        }
-        else
+        Optional<CharacterInGame> charToUpdate = charRepository.findById(id);
+        if(charToUpdate.isEmpty())
             return null;
+        else{
+            charRepository.save(character);
+            return charToUpdate.get();
+        }
     }
     public CharacterInGame patchCharacter(Long id, CharacterInGame character){
-        if (characterMap.containsKey(id)){
-            CharacterInGame charToChange = characterMap.get(id);
+        Optional<CharacterInGame> charToPatch = charRepository.findById(id);
+        if (charToPatch.isPresent()){
+            CharacterInGame charToChange = charToPatch.get();
             if (!(character.getName()==null))
                 charToChange.setName(character.getName());
             if (!(character.getSurname()==null))
@@ -79,6 +76,7 @@ public class CharacterService {
                 charToChange.setLike(character.getLike());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
+            charRepository.save(charToChange);
             return charToChange;
         }
         else
@@ -87,6 +85,12 @@ public class CharacterService {
 
     //Delete operation(D)
     public CharacterInGame deleteCharacter(Long id){
-        return characterMap.remove(id);
+        Optional<CharacterInGame> charToDelete = charRepository.findById(id);
+        if(charToDelete.isEmpty())
+            return null;
+        else{
+            charRepository.deleteById(id);
+            return charToDelete.get();
+        }
     }
 }
