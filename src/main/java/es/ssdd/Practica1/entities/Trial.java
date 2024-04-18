@@ -18,13 +18,13 @@ public class Trial {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToMany
+    /*@ManyToMany
     @JoinTable(
             name = "trial_participants",
             joinColumns = @JoinColumn(name = "trial_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
-    private Set<CharacterInGame> participants = new HashSet<>();
+    private Set<CharacterInGame> participants = new HashSet<>();*/
     public Trial() {
     }
 

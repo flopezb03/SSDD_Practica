@@ -21,6 +21,18 @@
             <td colspan="2">{{game.duration}}</td>
         </tr>
         <tr>
+            <th>Trials</th>
+            <td colspan="2">
+                <ul>
+                    {{#game.trials}}
+                    <li>
+                        {{summary}}
+                    </li>
+                    {{/game.trials}}
+                </ul>
+            </td>
+        </tr>
+        <tr>
             <td><button onclick="window.location.href='/startMenu/games/update/{{game.id}}'">Update</button></td>
             <td><button onclick="window.location.href='/startMenu/games/delete/{{game.id}}'">Delete</button></td>
             <td><button onclick="window.location.href='/startMenu/games'">Game menu</button></td>

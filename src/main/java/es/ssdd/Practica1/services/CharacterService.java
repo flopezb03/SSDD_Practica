@@ -15,10 +15,10 @@ public class CharacterService {
     private CharacterRepository charRepository;
 
     public CharacterService(){
-        CharacterInGame char1 = new CharacterInGame("Edgar","Gutierrez Pleite","Low marks","The shiniest star","math",1.6d);
+        /*CharacterInGame char1 = new CharacterInGame("Edgar","Gutierrez Pleite","Low marks","The shiniest star","math",1.6d);
         charRepository.save(char1);
         CharacterInGame char2 = new CharacterInGame("Keqing","Liyue","Lazy people","Ganyu","Sword master",1.5d);
-        charRepository.save(char2);
+        charRepository.save(char2);*/
     }
 
     //CRUD opetarions
@@ -72,8 +72,8 @@ public class CharacterService {
                 charToChange.setHeight(character.getHeight());
             if (!(character.getDislike()==null))
                 charToChange.setDislike(character.getDislike());
-            if(!(character.getLike()==null))
-                charToChange.setLike(character.getLike());
+            if(!(character.getFav()==null))
+                charToChange.setFav(character.getFav());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
             charRepository.save(charToChange);
