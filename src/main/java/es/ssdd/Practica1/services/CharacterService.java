@@ -1,18 +1,24 @@
 package es.ssdd.Practica1.services;
 
 import es.ssdd.Practica1.entities.CharacterInGame;
+import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.repositories.CharacterRepository;
+import es.ssdd.Practica1.repositories.TrialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CharacterService {
     //CharacterService Attributes
     @Autowired
     private CharacterRepository charRepository;
+
+    @Autowired
+    private TrialRepository trialRepository;
 
     public CharacterService(){
         /*CharacterInGame char1 = new CharacterInGame("Edgar","Gutierrez Pleite","Low marks","The shiniest star","math",1.6d);
@@ -56,6 +62,13 @@ public class CharacterService {
         if(charToUpdate.isEmpty())
             return null;
         else{
+            Set<Trial> charTrials = character.getTrialsParticipated();
+            Trial trialI;
+            for(Trial trial:charTrials){
+                trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().add(character);
+                trialRepository.save(trialI);
+            }
             charRepository.save(character);
             return charToUpdate.get();
         }
@@ -76,6 +89,13 @@ public class CharacterService {
                 charToChange.setFav(character.getFav());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
+            Set<Trial> charTrials = charToChange.getTrialsParticipated();
+            Trial trialI;
+            for(Trial trial:charTrials){
+                trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().add(charToChange);
+                trialRepository.save(trialI);
+            }
             charRepository.save(charToChange);
             return charToChange;
         }
@@ -89,6 +109,14 @@ public class CharacterService {
         if(charToDelete.isEmpty())
             return null;
         else{
+            CharacterInGame characterD = charToDelete.get();
+            Set<Trial> charTrials = characterD.getTrialsParticipated();
+            Trial trialI;
+            for(Trial trial:charTrials){
+                trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().remove(characterD)
+                trialRepository.save(trialI);
+            }
             charRepository.deleteById(id);
             return charToDelete.get();
         }

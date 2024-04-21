@@ -13,7 +13,7 @@ public class CharacterInGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(mappedBy = "trials")
     private Set<Trial> trialsParticipated = new HashSet<>();
 
     //The combination of name & surname could be used as alternative key in second practice
@@ -109,5 +109,13 @@ public class CharacterInGame {
         }//This block states two character are the same if they have same name and username
         else
             return false;
+    }
+
+    public Set<Trial> getTrialsParticipated() {
+        return trialsParticipated;
+    }
+
+    public void setTrialsParticipated(Set<Trial> trialsParticipated) {
+        this.trialsParticipated = trialsParticipated;
     }
 }
