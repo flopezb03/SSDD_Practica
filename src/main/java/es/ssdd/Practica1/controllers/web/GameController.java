@@ -58,7 +58,7 @@ public class GameController {
     }
     @PostMapping("/games/update/{id}")
     public String updateGame(@PathVariable long id, Game updatedGame){
-        Game game = gameService.putGame(id,updatedGame);
+        Game game = gameService.updateGame(id,updatedGame);
         if(game == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Videogame with id "+id+" not found");
         return "redirect:/startMenu/games/details/"+id;

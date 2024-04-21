@@ -1,5 +1,6 @@
 package es.ssdd.Practica1.controllers.web;
 
+import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
@@ -78,5 +79,43 @@ public class TrialController {
     @ExceptionHandler({ResponseStatusException.class})
     public ModelAndView handleException(ResponseStatusException ex){
         return errorMessageHandler.errorMessage("Error "+ex.getStatusCode().value()+": "+ex.getReason(),"/startMenu/trials");
+    }
+
+
+
+    @GetMapping("/trials/details/{id}/characters")
+    public String showCharactersManager(Model model, @PathVariable long id){
+        Trial trial = trialService.getTrial(id);
+        if(trial == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
+        model.addAttribute("trial", trial);
+
+
+        return "trial-characterManager";
+    }
+    @PostMapping("/trials/details/{trial_id}/characters/add")
+    public String addCharacter(@PathVariable long trial_id, Long character_id){
+        if(trialService.getTrial(trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+trial_id+" not found");
+        if(trialService.getCharacter(character_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+character_id+" not found");
+
+        if(trialService.addCharacter(trial_id,character_id)==null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"An error occurred while adding character to trial");
+
+        return "redirect:/startMenu/trials/details/"+trial_id+"/characters";
+    }
+
+    @PostMapping("/trials/details/{trial_id}/characters/remove")
+    public String removeCharacter(@PathVariable long trial_id, Long character_id){
+        if(trialService.getTrial(trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+trial_id+" not found");
+        if(trialService.getCharacter(character_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+character_id+" not found");
+
+        if(trialService.removeCharacter(trial_id,character_id)==null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"An error occurred while removing character to trial");
+
+        return "redirect:/startMenu/trials/details/"+trial_id+"/characters";
     }
 }

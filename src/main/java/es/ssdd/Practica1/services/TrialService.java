@@ -1,5 +1,6 @@
 package es.ssdd.Practica1.services;
 
+import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.repositories.CharacterRepository;
@@ -71,5 +72,49 @@ public class TrialService {
     public Game getGame(Long id){
         Optional<Game> byId = gameRepository.findById(id);
         return byId.orElse(null);
+    }
+    public Collection<CharacterInGame> getAllCharacters(){
+        return characterRepository.findAll();
+    }
+    public CharacterInGame getCharacter(Long id){
+        Optional<CharacterInGame> byId = characterRepository.findById(id);
+        return byId.orElse(null);
+    }
+    public Trial addCharacter(Long trial_id, Long character_id){
+        Optional<Trial> trialOptional = trialRepository.findById(trial_id);
+        if (trialOptional.isEmpty())
+            return null;
+        Optional<CharacterInGame> characterOptional = characterRepository.findById(character_id);
+        if (characterOptional.isEmpty())
+            return null;
+
+        Trial trial = trialOptional.get();
+        CharacterInGame character = characterOptional.get();
+
+        if(trial.getParticipants().contains(character))
+            return null;
+
+        trial.getParticipants().add(character);
+        //  Añadir del otro lado??? -> parece que no
+
+        return trialRepository.save(trial);
+    }
+    public Trial removeCharacter(Long trial_id, Long character_id){
+        Optional<Trial> trialOptional = trialRepository.findById(trial_id);
+        if (trialOptional.isEmpty())
+            return null;
+        Optional<CharacterInGame> characterOptional = characterRepository.findById(character_id);
+        if (characterOptional.isEmpty())
+            return null;
+
+        Trial trial = trialOptional.get();
+        CharacterInGame character = characterOptional.get();
+
+        if(!trial.getParticipants().contains(character))
+            return null;
+
+        trial.getParticipants().remove(character);
+
+        return trialRepository.save(trial);
     }
 }

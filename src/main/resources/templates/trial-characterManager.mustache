@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trial Character Manger</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Trial Character Manger</h1>
+
+<form action="/startMenu/trials/details/{{trial.trial_id}}/characters/add" method="post" >
+    <table>
+        <tr>
+            <th><label for="character_id">Character ID:</label></th>
+            <td><input type="text" id="character_id" name="character_id"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<form action="/startMenu/trials/details/{{trial.trial_id}}/characters/remove" method="post" >
+    <table>
+        <tr>
+            <th><label for="character_id">Character ID:</label></th>
+            <td><input type="text" id="character_id" name="character_id"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Remove"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<button onclick="window.location.href='/startMenu/trials/details/{{trial.trial_id}}'">Back</button>
+</body>
+</html>

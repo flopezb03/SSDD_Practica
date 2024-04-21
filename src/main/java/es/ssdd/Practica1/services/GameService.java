@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class GameService {
@@ -33,7 +30,7 @@ public class GameService {
         return byId.orElse(null);
         //return games.get(id);
     }
-    public Game putGame(long id, Game updatedGame){
+    public Game updateGame(long id, Game updatedGame){
         Optional<Game> byId = gameRepository.findById(id);
         if(byId.isPresent()) {
             updatedGame.setId(id);
