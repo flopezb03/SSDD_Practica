@@ -37,6 +37,11 @@ public class DataLoader implements CommandLineRunner {
         Trial trial3 = new Trial(1,"dec","Trial3");
         Trial trial4 = new Trial(1,"dec","Trial4");
 
+        trial1.setGame(game1);
+        trial2.setGame(game2);
+        trial3.setGame(game3);
+        trial4.setGame(game3);
+
         trialRepository.save(trial1);
         trialRepository.save(trial2);
         trialRepository.save(trial3);
