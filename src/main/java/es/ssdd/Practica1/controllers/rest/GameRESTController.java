@@ -28,8 +28,8 @@ public class GameRESTController {
         return ResponseEntity.status(200).body(game);
     }
     @PutMapping("games/{id}")
-    public ResponseEntity<Game> putGame(@PathVariable long id, @RequestBody Game updatedGame){
-        Game game = gameService.putGame(id,updatedGame);
+    public ResponseEntity<Game> updateGame(@PathVariable long id, @RequestBody Game updatedGame){
+        Game game = gameService.updateGame(id,updatedGame);
         if(game == null)
             return ResponseEntity.status(404).build();
         return ResponseEntity.status(200).body(game);
