@@ -6,7 +6,11 @@
 </head>
 <body>
 <h1>Trial Character Manger</h1>
-
+<ul>
+    {{#trial.participants}}
+        <li> {{idChar}} - {{name}}</li>
+    {{/trial.participants}}
+</ul>
 <form action="/startMenu/trials/details/{{trial.trial_id}}/characters/add" method="post" >
     <table>
         <tr>

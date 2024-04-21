@@ -27,6 +27,11 @@ public class Trial {
     private Set<CharacterInGame> participants = new HashSet<>();
     public Trial() {
     }
+    public Trial(int chapter, String decor, String summary){
+        this.chapter = chapter;
+        this.decor = decor;
+        this.summary = summary;
+    }
 
     public Long getTrial_id() {
         return trial_id;
