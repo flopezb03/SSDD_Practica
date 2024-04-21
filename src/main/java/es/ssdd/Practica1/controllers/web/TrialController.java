@@ -1,8 +1,10 @@
 package es.ssdd.Practica1.controllers.web;
 
+import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
 import es.ssdd.Practica1.util.ErrorMessageHandler;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ public class TrialController {
     @Autowired
     private TrialService trialService;
     ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
+    HttpServletRequest request;
 
     @GetMapping("/trials")
     public String showAllTrials (Model model){
@@ -28,11 +31,14 @@ public class TrialController {
     @GetMapping("/trials/create")
     public String createTrialForm(Model model){
         model.addAttribute("trial", new Trial());
+        model.addAttribute("gameList", trialService.getAllGames());
         return "trial-create";
     }
 
     @PostMapping("/trials/create")
-    public String createTrial (Trial trial){
+    public String createTrial (Trial trial, Long game_id){
+        Game game = trialService.getGame(game_id);
+        trial.setGame(game);
         trialService.createTrial(trial);
         return "redirect:/startMenu/trials";
     }

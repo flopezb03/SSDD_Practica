@@ -18,13 +18,13 @@ public class Trial {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    /*@ManyToMany
+    @ManyToMany
     @JoinTable(
             name = "trial_participants",
             joinColumns = @JoinColumn(name = "trial_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
-    private Set<CharacterInGame> participants = new HashSet<>();*/
+    private Set<CharacterInGame> participants = new HashSet<>();
     public Trial() {
     }
 
@@ -58,5 +58,21 @@ public class Trial {
 
     public void setChapter(int chapter) {
         this.chapter = chapter;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Set<CharacterInGame> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<CharacterInGame> participants) {
+        this.participants = participants;
     }
 }

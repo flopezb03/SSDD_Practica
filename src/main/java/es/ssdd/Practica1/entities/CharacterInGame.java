@@ -3,6 +3,9 @@ package es.ssdd.Practica1.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class CharacterInGame {
     //Attributes of the class
@@ -10,8 +13,8 @@ public class CharacterInGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
 
-    //@ManyToMany(mappedBy = "trials")
-    //private Set<Trial> trialsParticipated = new HashSet<>();
+    @ManyToMany(mappedBy = "participants")
+    private Set<Trial> trialsParticipated = new HashSet<>();
 
     //The combination of name & surname could be used as alternative key in second practice
     private String name;

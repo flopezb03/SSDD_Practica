@@ -1,6 +1,9 @@
 package es.ssdd.Practica1.services;
 
+import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
+import es.ssdd.Practica1.repositories.CharacterRepository;
+import es.ssdd.Practica1.repositories.GameRepository;
 import es.ssdd.Practica1.repositories.TrialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,10 @@ public class TrialService {
 
     @Autowired
     private TrialRepository trialRepository;
+    @Autowired
+    private GameRepository gameRepository;
+    @Autowired
+    private CharacterRepository characterRepository;
 
     public TrialService(){
     }
@@ -56,5 +63,13 @@ public class TrialService {
         if (trial.getSummary() != null)
             updateTrial.setSummary(trial.getSummary());
         return trialRepository.save(updateTrial);
+    }
+
+    public Collection<Game> getAllGames(){
+        return gameRepository.findAll();
+    }
+    public Game getGame(Long id){
+        Optional<Game> byId = gameRepository.findById(id);
+        return byId.orElse(null);
     }
 }
