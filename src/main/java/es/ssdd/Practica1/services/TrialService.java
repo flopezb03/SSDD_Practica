@@ -49,6 +49,7 @@ public class TrialService {
         Optional<Trial> byId = trialRepository.findById(id);
         if (byId.isEmpty())
             return null;
+        trial.setTrial_id(id);
         return trialRepository.save(trial);
     }
 
@@ -63,6 +64,8 @@ public class TrialService {
             updateTrial.setDecor(trial.getDecor());
         if (trial.getSummary() != null)
             updateTrial.setSummary(trial.getSummary());
+        if (trial.getGame() != null)
+            updateTrial.setGame(trial.getGame());
         return trialRepository.save(updateTrial);
     }
 
