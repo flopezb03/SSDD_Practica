@@ -9,7 +9,7 @@ import java.util.Set;
 public class Trial {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long trial_id;
     private int chapter;
     private String decor;
@@ -18,7 +18,7 @@ public class Trial {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "trial_participants",
             joinColumns = @JoinColumn(name = "trial_id"),

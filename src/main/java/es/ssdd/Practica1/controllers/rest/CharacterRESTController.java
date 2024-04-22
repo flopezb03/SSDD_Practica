@@ -50,24 +50,30 @@ public class CharacterRESTController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterInGame> putCharacter(@PathVariable Long id, @RequestBody CharacterInGame character){
-        CharacterInGame updatedChar = charService.putCharacter(id,character);
-        if (updatedChar== null)
-            return ResponseEntity.notFound().build();
-        else
-            return ResponseEntity.ok().body(updatedChar);
+    public ResponseEntity<CharacterInGame> updateCharacter(@PathVariable Long id, @RequestBody CharacterInGame character){
+        if(character == null){
+            return ResponseEntity.badRequest().body(null);
+        }else{
+            CharacterInGame updatedChar = charService.putCharacter(id, character);
+            if (updatedChar == null)
+                return ResponseEntity.notFound().build();
+            else
+                return ResponseEntity.ok().body(updatedChar);
+        }
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CharacterInGame> patchCharacter(@PathVariable Long id, @RequestBody CharacterInGame character){
-        CharacterInGame partialUpdatedChar = charService.patchCharacter(id,character);
-        if(partialUpdatedChar==null)
-            return ResponseEntity.notFound().build();
-        else
-            return ResponseEntity.ok().body(partialUpdatedChar);
+    public ResponseEntity<CharacterInGame> modifyCharacter(@PathVariable Long id, @RequestBody CharacterInGame character){
+        if(character == null){
+            return ResponseEntity.badRequest().body(null);
+        }else {
+            CharacterInGame partialUpdatedChar = charService.patchCharacter(id, character);
+            if (partialUpdatedChar == null)
+                return ResponseEntity.notFound().build();
+            else
+                return ResponseEntity.ok().body(partialUpdatedChar);
+
+        }
     }
-
-
-
 
 }

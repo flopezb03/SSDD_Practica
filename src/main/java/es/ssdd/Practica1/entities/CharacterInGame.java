@@ -13,7 +13,7 @@ public class CharacterInGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(mappedBy = "participants",fetch = FetchType.EAGER)
     private Set<Trial> trialsParticipated = new HashSet<>();
 
     //The combination of name & surname could be used as alternative key in second practice

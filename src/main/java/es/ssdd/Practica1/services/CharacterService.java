@@ -62,13 +62,13 @@ public class CharacterService {
         if(charToUpdate.isEmpty())
             return null;
         else{
-            Set<Trial> charTrials = character.getTrialsParticipated();
+            /*Set<Trial> charTrials = character.getTrialsParticipated();
             Trial trialI;
             for(Trial trial:charTrials){
                 trialI = trialRepository.getById(trial.getTrial_id());
                 trialI.getParticipants().add(character);
                 trialRepository.save(trialI);
-            }
+            }*/
             charRepository.save(character);
             return charToUpdate.get();
         }
@@ -89,13 +89,15 @@ public class CharacterService {
                 charToChange.setFav(character.getFav());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
-            Set<Trial> charTrials = charToChange.getTrialsParticipated();
+            //Update the trials deleting this character in their entries
+           /* Set<Trial> charTrials = charToChange.getTrialsParticipated();
             Trial trialI;
             for(Trial trial:charTrials){
                 trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().remove(charToPatch.get());
                 trialI.getParticipants().add(charToChange);
                 trialRepository.save(trialI);
-            }
+            }*/
             charRepository.save(charToChange);
             return charToChange;
         }
@@ -110,13 +112,13 @@ public class CharacterService {
             return null;
         else{
             CharacterInGame characterD = charToDelete.get();
-            Set<Trial> charTrials = characterD.getTrialsParticipated();
+            /*Set<Trial> charTrials = characterD.getTrialsParticipated();
             Trial trialI;
             for(Trial trial:charTrials){
                 trialI = trialRepository.getById(trial.getTrial_id());
                 trialI.getParticipants().remove(characterD);
                 trialRepository.save(trialI);
-            }
+            }*/
             charRepository.deleteById(id);
             return charToDelete.get();
         }
