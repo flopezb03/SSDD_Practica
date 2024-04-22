@@ -1,6 +1,7 @@
 package es.ssdd.Practica1.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -27,6 +28,7 @@ public class Trial {
             joinColumns = @JoinColumn(name = "trial_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
+    @JsonIgnore
     private Set<CharacterInGame> participants = new HashSet<>();
     public Trial() {
     }
