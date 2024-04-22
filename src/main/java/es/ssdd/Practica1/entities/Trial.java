@@ -1,5 +1,7 @@
 package es.ssdd.Practica1.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -16,6 +18,7 @@ public class Trial {
     private String summary;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
+    @JsonBackReference
     private Game game;
 
     @ManyToMany
