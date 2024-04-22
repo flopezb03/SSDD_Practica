@@ -1,5 +1,7 @@
 package es.ssdd.Practica1.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -15,6 +17,7 @@ public class Game {
     private Integer duration;
 
     @OneToMany(mappedBy = "game",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Trial> trials = new HashSet<>();
 
     public Game(){}

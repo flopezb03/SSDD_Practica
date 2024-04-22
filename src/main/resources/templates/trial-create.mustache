@@ -23,7 +23,11 @@
             </tr>
             <tr>
                 <th><label for="game_id">Select Game:</label> </th>
-                <td><textarea id="game_id" name="game_id" ></textarea></td>
+                <td><select id="game_id" name="game_id">
+                    {{#gameList}}
+                        <option value={{id}}>{{name}}</option>
+                    {{/gameList}}
+                </select></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Create"></td>
