@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @RequestMapping("/startMenu")
 @Controller
 public class TrialController {
@@ -67,10 +69,15 @@ public class TrialController {
         if (toUpdate == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
         model.addAttribute("trial", toUpdate);
+        model.addAttribute("gameList", trialService.getAllGames());
         return "trial-update";
     }
     @PostMapping("/trials/update/{id}")
-    public String updateTrial (@PathVariable long id, Trial trial){
+    public String updateTrial (@PathVariable long id, Trial trial, Long game_id){
+        Game updatedGame= trialService.getGame(game_id);
+        if (updatedGame == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Game with id "+game_id+" not found");
+        trial.setGame(updatedGame);
         Trial toUpdate = trialService.putTrial(id, trial);
         if (toUpdate == null)
             throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+id+" not found");
