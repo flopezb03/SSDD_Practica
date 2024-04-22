@@ -1,5 +1,6 @@
 package es.ssdd.Practica1.controllers.rest;
 
+import es.ssdd.Practica1.entities.CharacterInGame;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,27 @@ public class TrialRESTController {
         if (trial == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.status(200).body(updated);
+    }
+
+    @GetMapping("trials/{id}/characters")
+    public ResponseEntity<Collection<CharacterInGame>> getCharacters(@PathVariable long id){
+        Trial trial = trialService.getTrial(id);
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial.getParticipants());
+    }
+    @PostMapping("trials/{id}/characters")
+    public ResponseEntity<Trial> addCharacter(@PathVariable long id, @RequestBody CharacterInGame character){
+        Trial trial = trialService.addCharacter(id,character.getIdChar());
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial);
+    }
+    @DeleteMapping("trials/{id}/characters")
+    public ResponseEntity<Trial> removeCharacter(@PathVariable long id, @RequestBody CharacterInGame character){
+        Trial trial = trialService.removeCharacter(id,character.getIdChar());
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial);
     }
 }

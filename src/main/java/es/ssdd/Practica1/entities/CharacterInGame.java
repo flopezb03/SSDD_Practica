@@ -1,6 +1,8 @@
 package es.ssdd.Practica1.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -14,6 +16,7 @@ public class CharacterInGame {
     private Long idChar;
 
     @ManyToMany(mappedBy = "participants")
+    @JsonIgnore
     private Set<Trial> trialsParticipated = new HashSet<>();
 
     //The combination of name & surname could be used as alternative key in second practice
