@@ -33,6 +33,9 @@ public class TrialService {
         if (byId.isEmpty())
             return null;
         Trial trial = byId.get();
+        for(CharacterInGame character:trial.getParticipants()){
+            character.getTrialsParticipated().remove(trial);
+        }
         trialRepository.deleteById(id);
         return trial;
     }
@@ -51,6 +54,13 @@ public class TrialService {
         if (byId.isEmpty())
             return null;
         trial.setTrial_id(id);
+        /*Game gameToUpdate = byId.get().getGame();
+        gameToUpdate.getTrials().remove(byId.get());
+        gameToUpdate.getTrials().add(trial);*/
+        for(CharacterInGame character:byId.get().getParticipants()){
+            character.getTrialsParticipated().remove(byId.get());
+            character.getTrialsParticipated().add(trial);
+        }
         return trialRepository.save(trial);
     }
 
@@ -67,6 +77,10 @@ public class TrialService {
             updateTrial.setSummary(trial.getSummary());
         if (trial.getGame() != null)
             updateTrial.setGame(trial.getGame());
+        for(CharacterInGame character:byId.get().getParticipants()){
+            character.getTrialsParticipated().remove(byId.get());
+            character.getTrialsParticipated().add(updateTrial);
+        }
         return trialRepository.save(updateTrial);
     }
 
@@ -84,7 +98,7 @@ public class TrialService {
         Optional<CharacterInGame> byId = characterRepository.findById(id);
         return byId.orElse(null);
     }
-    public Trial addCharacter(Long trial_id, Long character_id){
+    public Trial addCharacter(long trial_id, long character_id){
         Optional<Trial> trialOptional = trialRepository.findById(trial_id);
         if (trialOptional.isEmpty())
             return null;

@@ -114,7 +114,6 @@ public class CharacterService {
             for(Trial trial:trialsParticipated){
                 trialI = trialRepository.getById(trial.getTrial_id());
                 trialI.getParticipants().remove(characterD);
-                trialRepository.save(trialI);
             }
             charRepository.deleteById(id);
             return characterD;
