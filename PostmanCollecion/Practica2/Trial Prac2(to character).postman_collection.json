@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "f26b01dd-82e1-496d-94d4-ced1be98a7f2",
+		"name": "Trial Prac2(to character)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33694978",
+		"_collection_link": "https://ssddegpjrflp.postman.co/workspace/My-Workspace~137b00e5-4014-4c52-8b44-b5b77b7920e6/collection/33638518-f26b01dd-82e1-496d-94d4-ced1be98a7f2?action=share&source=collection_link&creator=33694978"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get all trials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get char from a trial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/trials/1/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"1",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete char2 from trial 1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/trials/1/characters/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"1",
+								"characters",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Get all trials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new trial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"chapter\": 5,\r\n        \"decor\": \"Sala de tortura\",\r\n        \"summary\": \"Alejrando fue ejecutado por matar a Edgar\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding a char to new trial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/trials/5/characters/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"5",
+								"characters",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trials to see changes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trials from char2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/characters/2/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters",
+								"2",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update and patch",
+			"item": [
+				{
+					"name": "Put trial 1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"chapter\": 3,\r\n        \"decor\": \"decoracion\",\r\n        \"summary\": \"Osito desaparecido\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/trials/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch trial2 chapter",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"chapter\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/trials/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeing info updated on chars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/characters/1/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters",
+								"1",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeing info updated on trials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Every character",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/characters",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete trial1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trials updated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "trials of char1 updated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/characters/1/trials",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters",
+								"1",
+								"trials"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

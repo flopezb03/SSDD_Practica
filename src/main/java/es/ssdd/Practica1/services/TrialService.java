@@ -113,7 +113,6 @@ public class TrialService {
             return null;
 
         trial.getParticipants().add(character);
-        //  Añadir del otro lado??? -> parece que no
 
         return trialRepository.save(trial);
     }
