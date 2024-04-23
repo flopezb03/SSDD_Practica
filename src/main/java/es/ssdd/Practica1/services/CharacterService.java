@@ -121,4 +121,52 @@ public class CharacterService {
             return charToDelete.get();
         }
     }
+
+    public Trial getTrial(Long id){
+        Optional<Trial> byId = trialRepository.findById(id);
+        return byId.orElse(null);
+    }
+
+    public CharacterInGame addTrial(Long char_id, Long trial_id){
+        Optional<CharacterInGame> charById = charRepository.findById(char_id);
+        if (charById.isEmpty())
+            return null;
+
+        Optional<Trial> trialById = trialRepository.findById(trial_id);
+        if (trialById.isEmpty())
+            return null;
+
+        CharacterInGame characterInGame = charById.get();
+        Trial trial = trialById.get();
+
+        if (characterInGame.getTrialsParticipated().contains(trial))
+            return null;
+
+        characterInGame.getTrialsParticipated().add(trial);
+
+        return charRepository.save(characterInGame);
+
+    }
+
+    public  CharacterInGame removeTrial(Long char_id, Long trial_id) {
+        Optional<CharacterInGame> charById = charRepository.findById(char_id);
+        if (charById.isEmpty())
+            return null;
+
+        Optional<Trial> trialById = trialRepository.findById(trial_id);
+        if (trialById.isEmpty())
+            return null;
+
+        CharacterInGame characterInGame = charById.get();
+        Trial trial = trialById.get();
+
+        if (!characterInGame.getTrialsParticipated().contains(trial))
+            return null;
+
+        characterInGame.getTrialsParticipated().remove(trial);
+
+        return charRepository.save(characterInGame);
+    }
+
+
 }

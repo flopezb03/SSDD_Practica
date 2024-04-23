@@ -15,7 +15,12 @@ public class CharacterInGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany
+    @JoinTable(
+            name = "trial_participants",
+            joinColumns = @JoinColumn(name = "character_id"),
+            inverseJoinColumns = @JoinColumn(name = "trial_id")
+    )
     @JsonIgnore
     private Set<Trial> trialsParticipated = new HashSet<>();
 
