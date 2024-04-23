@@ -68,6 +68,10 @@ public class CharacterService {
         if(charToUpdate.isEmpty())
             return null;
         else{
+            for(Trial trial:charToUpdate.get().getTrialsParticipated()){
+                trial.getParticipants().remove(charToUpdate.get());
+                trial.getParticipants().add(character);
+            }
             return charRepository.save(character);
         }
 
@@ -88,7 +92,10 @@ public class CharacterService {
                 charToChange.setFav(character.getFav());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
-
+            for(Trial trial:charToPatch.get().getTrialsParticipated()){
+                trial.getParticipants().remove(charToPatch.get());
+                trial.getParticipants().add(charToChange);
+            }
             return charRepository.save(charToChange);
         }
         else
