@@ -145,13 +145,11 @@ public class CharacterService {
         CharacterInGame character = getCharacter(idChar);
         if(trial== null || character == null)
             return null;
-        else{
-            trial.getParticipants().add(character);
-            character.getTrialsParticipated().add(trial);
-            trialRepository.save(trial);
-            charRepository.save(character);
-            return character;
-        }
+        if(character.getTrialsParticipated().contains(trial))
+            return null;
+        character.getTrialsParticipated().add(trial);
+        charRepository.save(character);
+        return character;
     }
 
     public CharacterInGame removeTrial(Long idChar,Long idTrial){
@@ -159,13 +157,12 @@ public class CharacterService {
         CharacterInGame character = getCharacter(idChar);
         if(trial== null || character == null)
             return null;
-        else{
-            trial.getParticipants().remove(character);
-            character.getTrialsParticipated().remove(trial);
-            trialRepository.save(trial);
-            charRepository.save(character);
-            return character;
-        }
+        if (!character.getTrialsParticipated().contains(trial))
+            return null;
+        character.getTrialsParticipated().remove(trial);
+        charRepository.save(character);
+        return character;
+
 
     }
 }

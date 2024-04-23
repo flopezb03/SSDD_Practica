@@ -14,7 +14,7 @@ public class CharacterInGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "trial_participants",
             joinColumns = @JoinColumn(name = "character_id"),
