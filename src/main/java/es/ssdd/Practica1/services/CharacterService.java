@@ -117,7 +117,7 @@ public class CharacterService {
                 trialRepository.save(trialI);
             }
             charRepository.deleteById(id);
-            return charToDelete.get();
+            return characterD;
         }
     }
 

@@ -90,9 +90,9 @@ public class CharacterRESTController {
     }
 
 
-    @PostMapping("/{id}/trials")
-    public ResponseEntity<CharacterInGame> addTrialParticipated(@PathVariable long id,@RequestBody Trial trial){
-        CharacterInGame character = charService.addTrial(id, trial.getTrial_id());
+    @PostMapping("/{id}/trials/{idTrial}")
+    public ResponseEntity<CharacterInGame> addTrialParticipated(@PathVariable long id,@PathVariable long idTrial){
+        CharacterInGame character = charService.addTrial(id, idTrial);
         if(character == null)
             return  ResponseEntity.notFound().build();
         else
@@ -100,8 +100,8 @@ public class CharacterRESTController {
     }
 
     @DeleteMapping("/{id}/trials/{idTrial}")
-    public ResponseEntity<CharacterInGame> deleteTrialParticipated(@PathVariable long id, @PathVariable long idTrial){
-        CharacterInGame character = charService.removeTrial(id,idTrial);
+    public ResponseEntity<CharacterInGame> deleteTrialParticipated(@PathVariable long id,@PathVariable long idTrial){
+        CharacterInGame character = charService.removeTrial(id, idTrial);
         if(character == null)
             return  ResponseEntity.notFound().build();
         else
