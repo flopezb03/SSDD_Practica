@@ -22,6 +22,7 @@ public class TrialService {
     @Autowired
     private CharacterRepository characterRepository;
 
+
     public TrialService(){
     }
     public Trial createTrial(Trial trial){

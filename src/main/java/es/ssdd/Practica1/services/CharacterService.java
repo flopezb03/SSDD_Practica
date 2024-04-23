@@ -21,10 +21,6 @@ public class CharacterService {
     private TrialRepository trialRepository;
 
     public CharacterService(){
-        /*CharacterInGame char1 = new CharacterInGame("Edgar","Gutierrez Pleite","Low marks","The shiniest star","math",1.6d);
-        charRepository.save(char1);
-        CharacterInGame char2 = new CharacterInGame("Keqing","Liyue","Lazy people","Ganyu","Sword master",1.5d);
-        charRepository.save(char2);*/
     }
 
     //CRUD opetarions
@@ -32,7 +28,14 @@ public class CharacterService {
     //Create operation(C)
     public CharacterInGame createCharacter(CharacterInGame character){
         boolean alreadyExists = charRepository.findAll().contains(character);
-        if (!alreadyExists) {
+        if (!alreadyExists && !(character == null)) {
+            Set<Trial> charTrials = character.getTrialsParticipated();
+            Trial trialI;
+            for(Trial trial:charTrials){
+                trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().add(character);
+                trialRepository.save(trialI);
+            }
             charRepository.save(character);
             return (character);
         }else{
@@ -44,10 +47,12 @@ public class CharacterService {
     getCharacter to read a single character
     getAllCharacters to read every character in the map
     * */
+
     public CharacterInGame getCharacter(Long id){
         Optional<CharacterInGame> charToGet = charRepository.findById(id);
         return  charToGet.orElse(null);
     }
+
 
     public Collection<CharacterInGame> getAllCharacter(){
         return charRepository.findAll();
@@ -64,14 +69,15 @@ public class CharacterService {
         else{
             Set<Trial> charTrials = character.getTrialsParticipated();
             Trial trialI;
-            for(Trial trial:charTrials){
+            for (Trial trial : charTrials) {
                 trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().remove(charToUpdate.get());
                 trialI.getParticipants().add(character);
                 trialRepository.save(trialI);
             }
-            charRepository.save(character);
-            return charToUpdate.get();
         }
+        charRepository.save(character);
+        return charToUpdate.get();
     }
     public CharacterInGame patchCharacter(Long id, CharacterInGame character){
         Optional<CharacterInGame> charToPatch = charRepository.findById(id);
@@ -89,10 +95,12 @@ public class CharacterService {
                 charToChange.setFav(character.getFav());
             if(!(character.getTalent()==null))
                 charToChange.setTalent(character.getTalent());
+            //Update the trials deleting this character in their entries
             Set<Trial> charTrials = charToChange.getTrialsParticipated();
             Trial trialI;
             for(Trial trial:charTrials){
                 trialI = trialRepository.getById(trial.getTrial_id());
+                trialI.getParticipants().remove(charToPatch.get());
                 trialI.getParticipants().add(charToChange);
                 trialRepository.save(trialI);
             }
@@ -110,9 +118,9 @@ public class CharacterService {
             return null;
         else{
             CharacterInGame characterD = charToDelete.get();
-            Set<Trial> charTrials = characterD.getTrialsParticipated();
+            Set<Trial> trialsParticipated = characterD.getTrialsParticipated();
             Trial trialI;
-            for(Trial trial:charTrials){
+            for(Trial trial:trialsParticipated){
                 trialI = trialRepository.getById(trial.getTrial_id());
                 trialI.getParticipants().remove(characterD);
                 trialRepository.save(trialI);
@@ -122,51 +130,42 @@ public class CharacterService {
         }
     }
 
-    public Trial getTrial(Long id){
-        Optional<Trial> byId = trialRepository.findById(id);
-        return byId.orElse(null);
+    //Operations with Trials due to the relationship
+    public Collection<Trial> getAllTrials(){
+        return trialRepository.findAll();
     }
 
-    public CharacterInGame addTrial(Long char_id, Long trial_id){
-        Optional<CharacterInGame> charById = charRepository.findById(char_id);
-        if (charById.isEmpty())
-            return null;
-
-        Optional<Trial> trialById = trialRepository.findById(trial_id);
-        if (trialById.isEmpty())
-            return null;
-
-        CharacterInGame characterInGame = charById.get();
-        Trial trial = trialById.get();
-
-        if (characterInGame.getTrialsParticipated().contains(trial))
-            return null;
-
-        characterInGame.getTrialsParticipated().add(trial);
-
-        return charRepository.save(characterInGame);
-
+    public Trial getTrial(Long idTrial){
+        Optional<Trial> trial = trialRepository.findById(idTrial);
+        return trial.orElse(null);
     }
 
-    public  CharacterInGame removeTrial(Long char_id, Long trial_id) {
-        Optional<CharacterInGame> charById = charRepository.findById(char_id);
-        if (charById.isEmpty())
+    public CharacterInGame addTrial(Long idChar,Long idTrial){
+        Trial trial = getTrial(idTrial);
+        CharacterInGame character = getCharacter(idChar);
+        if(trial== null || character == null)
             return null;
-
-        Optional<Trial> trialById = trialRepository.findById(trial_id);
-        if (trialById.isEmpty())
-            return null;
-
-        CharacterInGame characterInGame = charById.get();
-        Trial trial = trialById.get();
-
-        if (!characterInGame.getTrialsParticipated().contains(trial))
-            return null;
-
-        characterInGame.getTrialsParticipated().remove(trial);
-
-        return charRepository.save(characterInGame);
+        else{
+            trial.getParticipants().add(character);
+            character.getTrialsParticipated().add(trial);
+            trialRepository.save(trial);
+            charRepository.save(character);
+            return character;
+        }
     }
 
+    public CharacterInGame removeTrial(Long idChar,Long idTrial){
+        Trial trial = getTrial(idTrial);
+        CharacterInGame character = getCharacter(idChar);
+        if(trial== null || character == null)
+            return null;
+        else{
+            trial.getParticipants().remove(character);
+            character.getTrialsParticipated().remove(trial);
+            trialRepository.save(trial);
+            charRepository.save(character);
+            return character;
+        }
 
+    }
 }

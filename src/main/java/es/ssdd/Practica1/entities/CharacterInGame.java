@@ -1,7 +1,6 @@
 package es.ssdd.Practica1.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -46,6 +45,15 @@ public class CharacterInGame {
         this.height = height;
     }
 
+    public CharacterInGame(Set<Trial> trialsParticipated, String name, String surname, String dislike, String fav, String talent, double height) {
+        this.trialsParticipated = trialsParticipated;
+        this.name = name;
+        this.surname = surname;
+        this.dislike = dislike;
+        this.fav = fav;
+        this.talent = talent;
+        this.height = height;
+    }
 
     //Getter and setter methods
 
