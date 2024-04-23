@@ -22,13 +22,12 @@ public class Trial {
     @JsonBackReference
     private Game game;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "trial_participants",
             joinColumns = @JoinColumn(name = "trial_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
-    @JsonIgnore
     private Set<CharacterInGame> participants = new HashSet<>();
     public Trial() {
     }
