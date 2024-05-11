@@ -1,6 +1,7 @@
 package es.ssdd.Practica1.controllers.rest;
 
 import es.ssdd.Practica1.entities.CharacterInGame;
+import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,13 @@ public class TrialRESTController {
         if(trial == null)
             return  ResponseEntity.notFound().build();
         return ResponseEntity.ok(trial);
+    }
+
+    @GetMapping("trials/{id}/game")
+    public ResponseEntity<Game> getGame(@PathVariable long id){
+        Game game = trialService.getGame(id);
+        if(game == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(game);
     }
 }
