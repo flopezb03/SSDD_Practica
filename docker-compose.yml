@@ -8,17 +8,29 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
-      - db
+      - cluster
     restart: on-failure
-
-  db:
-    image: mysql:8.0
+  clusters:
+    cluster1:
+      driver: bridge
+  Node1:
+    image: cockroachdb/cockroach:latest
     environment:
       MYSQL_DATABASE: testDB
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - db-data:/var/lib/mysql
+      - VolumeNode1:/var/lib/mysql
+    restart: always
+
+  Node2:
+    image: cockroachdb/cockroach:latest
+    environment:
+      MYSQL_DATABASE: testDB
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - VolumeNode2:/var/lib/mysql
     restart: always
 
 volumes:
-  db-data:
+  VolumeNode1:
+  VolumeNode2:
