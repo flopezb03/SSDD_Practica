@@ -8,36 +8,53 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
-      - Node1
-      - Node2
+      - node2
     restart: on-failure
-  Node1:
+    networks:
+       network_cockroachdb:
+          aliases:
+            - app
+  node1:
     image: cockroachdb/cockroach:latest
-    container_name: Node1
+    container_name: node1
     environment:
       COCKROACH_DATABASE: testDB
       COCKROACH_ROOT_PASSWORD: password
     volumes:
-      - VolumeNode1:/cockroach/cockroach-data
-    #ports:
-     # - "26257:26257"
-      #- "8081:8080"
-    command: start --insecure --join=Node1,Node2
+      - volumeNode1:/cockroach/cockroach-data
+    command: start --insecure --join=node2
+    ports:
+      - "26258:26258"
+      - "8081:8080"
     restart: always
-
-  Node2:
+    networks:
+      network_cockroachdb:
+        aliases:
+          - node1
+  node2:
     image: cockroachdb/cockroach:latest
-    container_name: Node2
+    container_name: node2
     environment:
       COCKROACH_DATABASE: testDB
       COCKROACH_ROOT_PASSWORD: password
     volumes:
-      - VolumeNode2:/cockroach/cockroach-data
-    command: start --insecure --join=Node1,Node2
-    depends_on:
-      - Node1
+      - volumeNode2:/cockroach/cockroach-data
+    command: start --insecure --join=node1
+    ports:
+      - "26257:26257"
+      - "8082:8080"
+   # depends_on:
+    #  - node1
     restart: always
+    networks:
+      network_cockroachdb:
+        aliases:
+          - node2
 
 volumes:
-  VolumeNode1:
-  VolumeNode2:
+  volumeNode1:
+  volumeNode2:
+
+networks:
+  network_cockroachdb:
+    driver: bridge
