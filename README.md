@@ -1,34 +1,52 @@
-# Paso 1: Configurar el Maestro (Master)
-## 1. Crear el contenedor del maestro
 
-Archivo: docker-compose.yml
-
-Cambios:
-```yaml
-version: '3.8'
-
+# 1. docker-compose.yml
+````yaml
 services:
-    master:
-        image: mysql:8.0
-        container_name: master
-        environment:
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: testDB
-        volumes:
-        - master-data:/var/lib/mysql
-        ports:
-        - "3306:3306"
-        command: >
-          --server-id=1
-          --log-bin=mysql-bin
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://master:3306/testDB
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - master
+    restart: on-failure
+  master:
+    image: mysql:8.0
+    container_name: master
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: testDB
+    volumes:
+      - master-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
 
+  slave:
+    image: mysql:8.0
+    container_name: slave
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - slave-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    depends_on:
+      - master
+    command: >
+      --server-id=2
+      --relay-log=mysql-relay-bin
 volumes:
   master-data:
-```
-Explicación:
+  slave-data:
+````
+## 2. Configurar el contenedor del maestro
 
-server-id, log-bin: Pasan estos parámetros al iniciar el contenedor para configurar el maestro.
-Reiniciar el servicio MySQL dentro del contenedor maestro:
 
 Comando:
 ```shell
@@ -62,60 +80,15 @@ Copiar código
 | mysql-bin.000001 |      154 | testDB       |                  |
 +------------------+----------+--------------+------------------+
 ````
-# Paso 2: Configurar el Esclavo (Slave)
 
-## Crear el contenedor del esclavo
-
-Archivo: docker-compose.yml
-
-Cambios:
-````yaml
-version: '3.8'
-
-services:
-    master:
-        image: mysql:8.0
-        container_name: master
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: testDB
-        volumes:
-        - master-data:/var/lib/mysql
-        ports:
-        - "3306:3306"
-        command: >
-         --server-id=1
-         --log-bin=mysql-bin
-    
-    slave:
-        image: mysql:8.0
-        container_name: slave
-        environment:
-         MYSQL_ROOT_PASSWORD: password
-        volumes:
-        - slave-data:/var/lib/mysql
-        ports:
-        - "3307:3306"
-        depends_on:
-        - master
-        command: >
-         --server-id=2
-         --relay-log=mysql-relay-bin
-
-volumes:
-    master-data:
-    slave-data:
+````sql
+exit
 ````
 
-
-Explicación:
-
-server-id, relay-log: Pasan estos parámetros al iniciar el contenedor para configurar el esclavo.
-Reiniciar el servicio MySQL dentro del contenedor esclavo:
+## Configurar el contenedor del esclavo
 
 Comando:
 ````shell
-docker-compose up -d
 docker exec -it slave mysql -u root -p
 ````
 
