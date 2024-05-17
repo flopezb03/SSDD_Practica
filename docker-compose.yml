@@ -4,49 +4,40 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db/testDB
+      - SPRING_DATASOURCE_URL=jdbc:mysql://master:3306/testDB
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
-      - database_master
+      - master
     restart: on-failure
+  master:
+    image: mysql:8.0
+    container_name: master
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: testDB
+    volumes:
+      - master-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
 
-  database_master:
-    image: mysql:8.0.30
-    container_name: "database_master"
-    restart: unless-stopped
-    ports:
-      - 3306:3306
-    volumes:
-      - mysqldata_master:/var/lib/mysql
-      - ./master.cnf:/etc/my.cnf
+  slave:
+    image: mysql:8.0
+    container_name: slave
     environment:
-      - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_USER=my_db_user
-      - MYSQL_DATABASE=my_db
-      - MYSQL_PASSWORD=S3cret
-    networks:
-      - mynetwork
-  database_slave:
-    image: mysql:8.0.30
-    container_name: "database_slave"
-    restart: unless-stopped
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - slave-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
     depends_on:
-      - database_master
-    ports:
-      - 3307:3306
-    volumes:
-      - mysqldata_slave:/var/lib/mysql
-      - ./slave.cnf:/etc/my.cnf
-    environment:
-      - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_USER=my_db_user
-      - MYSQL_DATABASE=my_db
-      - MYSQL_PASSWORD=S3cret
-    networks:
-      - mynetwork
-networks:
-  mynetwork:
+      - master
+    command: >
+      --server-id=2
+      --relay-log=mysql-relay-bin
 volumes:
-  mysqldata_master:
-  mysqldata_slave:
+  master-data:
+  slave-data:
