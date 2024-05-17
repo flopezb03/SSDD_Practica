@@ -43,6 +43,7 @@ Comando SQL:
 CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';
 GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
 FLUSH PRIVILEGES;
+ALTER USER 'replicator'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
 Obtener la posición del log binario en el maestro:
 
