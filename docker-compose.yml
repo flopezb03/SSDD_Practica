@@ -18,6 +18,7 @@ services:
       MYSQL_DATABASE: testDB
     volumes:
       - master-data:/var/lib/mysql
+      - ./init-master.sql:/docker-entrypoint-initdb.d/init-master.sql
     ports:
       - "3306:3306"
     command: >
@@ -31,6 +32,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - slave-data:/var/lib/mysql
+      - ./init-slave.sh:/docker-entrypoint-initdb.d/init-slave.sh
     ports:
       - "3307:3306"
     depends_on:
