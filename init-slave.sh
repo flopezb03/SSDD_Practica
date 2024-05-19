@@ -15,12 +15,5 @@ FILE=$(echo "$MASTER_STATUS" | grep File | awk '{print $2}')
 POSITION=$(echo "$MASTER_STATUS" | grep Position | awk '{print $2}')
 
 # Configurar la replicación
-mysql -uroot -ppassword <<EOF
-CHANGE MASTER TO
-  MASTER_HOST='master',
-  MASTER_USER='replicator',
-  MASTER_PASSWORD='password',
-  MASTER_LOG_FILE='$FILE',
-  MASTER_LOG_POS=$POSITION;
-START SLAVE;
-EOF
+mysql -uroot -ppassword "CHANGE MASTER TO MASTER_HOST='master', MASTER_USER='replicator', MASTER_PASSWORD='password', MASTER_LOG_FILE='$FILE', MASTER_LOG_POS=$POSITION;"
+mysql -uroot -ppassword "START SLAVE;"
