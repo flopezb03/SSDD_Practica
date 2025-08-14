@@ -2,6 +2,7 @@ package es.ssdd.Practica1.controllers.rest;
 
 import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.services.GameService;
+import es.ssdd.Practica1.entities.Trial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,8 @@ public class GameRESTController {
         return ResponseEntity.status(200).body(game);
     }
     @PutMapping("games/{id}")
-    public ResponseEntity<Game> putGame(@PathVariable long id, @RequestBody Game updatedGame){
-        Game game = gameService.putGame(id,updatedGame);
+    public ResponseEntity<Game> updateGame(@PathVariable long id, @RequestBody Game updatedGame){
+        Game game = gameService.updateGame(id,updatedGame);
         if(game == null)
             return ResponseEntity.status(404).build();
         return ResponseEntity.status(200).body(game);
@@ -50,5 +51,12 @@ public class GameRESTController {
     @GetMapping("games")
     public ResponseEntity<Collection<Game>> getAllGame(){
         return ResponseEntity.status(200).body(gameService.getAllGame());
+    }
+    @GetMapping("games/{id}/trials")
+    public ResponseEntity<Collection<Trial>> getAllTrials(@PathVariable long id){
+        Collection<Trial> trials = gameService.getAllTrials(id);
+        if(trials == null)
+            return ResponseEntity.status(404).build();
+        return ResponseEntity.status(200).body(trials);
     }
 }

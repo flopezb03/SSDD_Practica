@@ -1,8 +1,27 @@
 package es.ssdd.Practica1.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 public class CharacterInGame {
     //Attributes of the class
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChar;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "trial_participants",
+            joinColumns = @JoinColumn(name = "character_id"),
+            inverseJoinColumns = @JoinColumn(name = "trial_id")
+    )
+    @JsonIgnore
+    private Set<Trial> trialsParticipated = new HashSet<>();
 
     //The combination of name & surname could be used as alternative key in second practice
     private String name;
@@ -10,22 +29,31 @@ public class CharacterInGame {
 
     //Other information attributes
     private String dislike; //A thing the char dislikes
-    private String like; //A thing the char likes
+    private String fav; //A thing the char likes
     private String talent;
 
     private double height;
 
     //Constructors
     public CharacterInGame(){}
-    public CharacterInGame(String name, String surname, String dislike, String like, String talent, double height) {
+    public CharacterInGame(String name, String surname, String dislike, String fav, String talent, double height) {
         this.name = name;
         this.surname = surname;
         this.dislike = dislike;
-        this.like = like;
+        this.fav = fav;
         this.talent = talent;
         this.height = height;
     }
 
+    public CharacterInGame(Set<Trial> trialsParticipated, String name, String surname, String dislike, String fav, String talent, double height) {
+        this.trialsParticipated = trialsParticipated;
+        this.name = name;
+        this.surname = surname;
+        this.dislike = dislike;
+        this.fav = fav;
+        this.talent = talent;
+        this.height = height;
+    }
 
     //Getter and setter methods
 
@@ -62,12 +90,12 @@ public class CharacterInGame {
         this.dislike = dislike;
     }
 
-    public String getLike() {
-        return like;
+    public String getFav() {
+        return fav;
     }
 
-    public void setLike(String like) {
-        this.like = like;
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 
     public String getTalent() {
@@ -97,5 +125,13 @@ public class CharacterInGame {
         }//This block states two character are the same if they have same name and username
         else
             return false;
+    }
+
+    public Set<Trial> getTrialsParticipated() {
+        return trialsParticipated;
+    }
+
+    public void setTrialsParticipated(Set<Trial> trialsParticipated) {
+        this.trialsParticipated = trialsParticipated;
     }
 }

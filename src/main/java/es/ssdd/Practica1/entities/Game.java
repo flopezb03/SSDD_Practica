@@ -1,15 +1,27 @@
 package es.ssdd.Practica1.entities;
 
-public class Game {
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
-    private long id;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class Game {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private Integer releaseYear;
     private Integer duration;
 
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<Trial> trials = new HashSet<>();
+
     public Game(){}
-    public Game(long id, String name, int releaseYear, int duration) {
-        this.id = id;
+    public Game(String name, int releaseYear, int duration) {
         this.name = name;
         this.releaseYear = releaseYear;
         this.duration = duration;
@@ -45,5 +57,13 @@ public class Game {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Set<Trial> getTrials() {
+        return trials;
+    }
+
+    public void setTrials(Set<Trial> trials) {
+        this.trials = trials;
     }
 }

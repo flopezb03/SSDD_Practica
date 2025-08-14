@@ -1,5 +1,7 @@
 package es.ssdd.Practica1.controllers.rest;
 
+import es.ssdd.Practica1.entities.CharacterInGame;
+import es.ssdd.Practica1.entities.Game;
 import es.ssdd.Practica1.entities.Trial;
 import es.ssdd.Practica1.services.TrialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +56,35 @@ public class TrialRESTController {
         if (trial == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.status(200).body(updated);
+    }
+
+    @GetMapping("trials/{id}/characters")
+    public ResponseEntity<Collection<CharacterInGame>> getCharacters(@PathVariable long id){
+        Trial trial = trialService.getTrial(id);
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial.getParticipants());
+    }
+    @PostMapping("trials/{id}/characters/{idChar}")
+    public ResponseEntity<Trial> addCharacter(@PathVariable long id, @PathVariable long idChar){
+        Trial trial = trialService.addCharacter(id,idChar);
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial);
+    }
+    @DeleteMapping("trials/{id}/characters/{charId}")
+    public ResponseEntity<Trial> removeCharacter(@PathVariable long id,@PathVariable long charId){
+        Trial trial = trialService.removeCharacter(id,charId);
+        if(trial == null)
+            return  ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trial);
+    }
+
+    @GetMapping("trials/{id}/game")
+    public ResponseEntity<Game> getGame(@PathVariable long id){
+        Game game = trialService.getGame(id);
+        if(game == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(game);
     }
 }

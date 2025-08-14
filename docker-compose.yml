@@ -1,0 +1,45 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://master:3306/testDB
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - master
+    restart: on-failure
+  master:
+    image: mysql:8.0
+    container_name: master
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: testDB
+    volumes:
+      - master-data:/var/lib/mysql
+      - ./init-master.sql:/docker-entrypoint-initdb.d/init-master.sql
+    ports:
+      - "3306:3306"
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
+
+  slave:
+    image: mysql:8.0
+    container_name: slave
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - slave-data:/var/lib/mysql
+      - ./init-slave.sh:/docker-entrypoint-initdb.d/init-slave.sh
+    ports:
+      - "3307:3306"
+    depends_on:
+      - master
+    command: >
+      --server-id=2
+      --relay-log=mysql-relay-bin
+volumes:
+  master-data:
+  slave-data:

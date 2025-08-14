@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trial Character Manger</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Trial Character Manager</h1>
+<table>
+    <tr>
+        <th>Trial participants</th>
+        <td>
+            <ul>
+            {{#trial.participants}}
+                <li> {{idChar}} - {{name}}</li>
+            {{/trial.participants}}
+            </ul>
+        </td>
+    </tr>
+</table>
+<br>
+<form action="/startMenu/trials/details/{{trial.trial_id}}/characters/add" method="post" >
+    <table>
+        <tr>
+            <th><label for="character_id">Character ID:</label></th>
+            <td><input type="text" id="character_id" name="character_id"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<form action="/startMenu/trials/details/{{trial.trial_id}}/characters/remove" method="post" >
+    <table>
+        <tr>
+            <th><label for="character_id">Character ID:</label></th>
+            <td><input type="text" id="character_id" name="character_id"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Remove"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<table>
+    <tr>
+        <td colspan="2"><button onclick="window.location.href='/startMenu/trials/details/{{trial.trial_id}}'">Back</button></td>
+    </tr>
+</table>
+
+</body>
+</html>

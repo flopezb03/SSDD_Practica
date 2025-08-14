@@ -5,7 +5,12 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<h1> Trial details</h1>
 <table>
+    <tr>
+        <th><label for="gameId">Game: </label> </th>
+        <td colspan="2">{{trial.game.name}}</td>
+    </tr>
     <tr>
         <th>Chapter:</th>
         <td colspan="2">{{trial.chapter}}</td>
@@ -17,6 +22,9 @@
     <tr>
         <th><label for="summary">Trial summary: </label> </th>
         <td colspan="2">{{trial.summary}}</td>
+    </tr>
+    <tr>
+        <td colspan="3"><button onclick="window.location.href='/startMenu/trials/details/{{trial.trial_id}}/characters'">Character Manager</button></td>
     </tr>
     <tr>
         <td><button onclick="window.location.href='/startMenu/trials/update/{{trial.trial_id}}'">Update</button></td>

@@ -79,4 +79,36 @@ public class CharacterController {
         return errorMessageHandler.errorMessage("Error "+ex.getStatusCode().value()+": "+ex.getReason(),"/startMenu/characters");
     }
 
+    @GetMapping("/characters/details/{id}/trials")
+    public String showTrialsManager(Model model, @PathVariable Long id){
+        CharacterInGame character = charService.getCharacter(id);
+        if(character == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+id+" not found");
+        model.addAttribute("character", character);
+        return "character-trialManager";
+    }
+
+    @PostMapping("characters/details/{char_id}/trials/add")
+    public String addTrial(@PathVariable Long char_id, Long trial_id){
+        if (charService.getCharacter(char_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+ char_id +" not found");
+        if (charService.getTrial(trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+trial_id+" not found");
+        if (charService.addTrial(char_id,trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"An error occurred while adding trial to character");
+        return "redirect:/startMenu/characters/details/"+char_id+"/trials";
+    }
+
+    @PostMapping("characters/details/{char_id}/trials/remove")
+    public String removeTrial(@PathVariable Long char_id, Long trial_id){
+        CharacterInGame character = charService.getCharacter(char_id);
+        if (character == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Character with id "+ char_id +" not found");
+        if (charService.getTrial(trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"Trial with id "+trial_id+" not found");
+        if (charService.removeTrial(char_id, trial_id) == null)
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404),"An error occurred while removing trial from character");
+
+        return "redirect:/startMenu/characters/details/"+char_id+"/trials";
+    }
 }

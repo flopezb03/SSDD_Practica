@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Trial Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Character Trial Manager</h1>
+<table>
+    <tr>
+        <th>Trials participated:</th>
+        <td>
+            <ul>
+                {{#character.trialsParticipated}}
+                    <li> {{trial_id}} - {{game.name}} Chapter {{chapter}}</li>
+                {{/character.trialsParticipated}}
+            </ul>
+        </td>
+    </tr>
+</table>
+<br>
+<form action="/startMenu/characters/details/{{character.idChar}}/trials/add" method="post">
+    <table>
+        <tr>
+            <th><label for="trial_id">Trial ID:</label></th>
+            <td><input type="text" id="trial_id" name="trial_id"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<form action="/startMenu/characters/details/{{character.idChar}}/trials/remove" method="post" >
+    <table>
+        <tr>
+            <th><label for="trial_id">Trial ID:</label></th>
+            <td><input type="text" id="trial_id" name="trial_id"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Remove"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<table>
+    <tr>
+        <td colspan="2"><button onclick="window.location.href='/startMenu/characters/details/{{character.idChar}}'">Back</button></td>
+    </tr>
+</table>
+
+</body>
+</html>
