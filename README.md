@@ -1,4 +1,9 @@
 
+Aplicación web desarrollada en Java con Spring Boot para el registro y gestión de datos.
+Inicialmente almacenaba la información en memoria, y posteriormente se integró con MySQL.
+El sistema se dockerizó, creando contenedores separados para la aplicación y la base de datos.
+Finalmente, se implementó un sistema distribuido master-slave en MySQL para lectura/escritura y replicación de datos.
+
 # 1. docker-compose.yml
 ````yaml
 services:
